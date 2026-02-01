@@ -1,0 +1,629 @@
+# Chapter 03: Development Workflows
+
+> **What if the AI could find bugs you didn't even know to ask about?**
+
+In this chapter, GitHub Copilot CLI becomes your daily driver. You'll learn the workflows you'll use constantly: running comprehensive code reviews, refactoring legacy code safely, debugging issues with AI assistance, generating tests automatically, and integrating Copilot with your git workflow. The "Bug Detective" demo shows AI finding related bugs you didn't even ask about. That's when it gets truly impressive.
+
+## Learning Objectives
+
+By the end of this chapter, you'll be able to:
+
+- Run comprehensive code reviews with Copilot
+- Refactor legacy code safely
+- Debug issues with AI assistance
+- Generate tests automatically
+- Integrate Copilot with your git workflow
+
+---
+
+## Real-World Analogy: Master Craftsman's Workflow
+
+A master carpenter doesn't just know how to use tools - they have *workflows* for different jobs:
+
+| Job | Workflow |
+|-----|----------|
+| Building furniture | Measure → Cut → Assemble → Finish |
+| Fixing damage | Assess → Remove → Repair → Match |
+| Quality check | Inspect → Test joints → Check alignment |
+
+Similarly, developers have workflows for different tasks. Copilot CLI enhances each one.
+
+<img src="images/craftsman-workshop-analogy.png" alt="Specialized Workflows for Every Task" width="800"/>
+
+*The right tool for every development task: Code Review, Refactoring, Debugging, Testing, and Git Integration*
+
+---
+
+## Workflow 1: Code Review
+
+### Basic Review
+
+```bash
+copilot
+
+> Review @src/api/users.js for code quality
+```
+
+### Security-Focused Review
+
+```bash
+copilot
+
+> Review @src/auth/login.js for security vulnerabilities. Check for: SQL injection, XSS, CSRF, insecure authentication, and sensitive data exposure
+```
+
+### Performance Review
+
+```bash
+copilot
+
+> Review @src/services/dataProcessor.js for performance issues. Look for: unnecessary loops, memory leaks, inefficient algorithms, and blocking operations
+```
+
+### Interactive Code Review
+
+```bash
+copilot
+
+> @src/api/users.js Review this file for:
+> - Security vulnerabilities
+> - Performance issues
+> - Code style and best practices
+
+# Copilot provides detailed review
+
+> The SQL injection on line 23 - show me the fix
+
+# Copilot shows the parameterized query fix
+
+> Create a checklist of all issues found, prioritized by severity
+
+# Copilot generates prioritized action items
+```
+
+### Review Checklist Template
+
+```bash
+copilot
+
+> Review @src/api/ and create a markdown checklist of issues found, categorized by:
+> - Critical (security vulnerabilities)
+> - High (bugs, data corruption risks)
+> - Medium (performance, maintainability)
+> - Low (style, minor improvements)
+```
+
+### Using the /review Command
+
+The `/review` command invokes the built-in **code-review agent**, which is optimized for analyzing staged and unstaged changes with high signal-to-noise output:
+
+```bash
+copilot
+
+> /review
+# Invokes the code-review agent on staged/unstaged changes
+# Provides focused, actionable feedback
+
+> /review Check for security issues in authentication
+# Run review with specific focus area
+```
+
+> 💡 **Tip**: The code-review agent works best when you have pending changes. Stage your files with `git add` for more focused reviews.
+
+---
+
+## Workflow 2: Refactoring
+
+### Callback to Async/Await
+
+```bash
+copilot
+
+> @legacy/userService.js This file uses callbacks. Refactor to async/await while:
+> - Maintaining the same function signatures
+> - Preserving error handling behavior
+> - Adding TypeScript types
+```
+
+<details>
+<summary>🎬 See it in action!</summary>
+
+![Refactor Demo](images/refactor-demo.gif)
+
+</details>
+
+### Extract Duplication
+
+```bash
+copilot
+
+> @src/controllers/userController.js @src/controllers/productController.js
+> These files have duplicated error handling. Extract a common error handler.
+```
+
+### Modernize Legacy Code
+
+```bash
+copilot
+
+> @legacy/oldModule.js Modernize this code:
+> - Convert var to const/let
+> - Use arrow functions where appropriate
+> - Replace .then() chains with async/await
+> - Add JSDoc comments
+```
+
+### Safe Refactoring with Tests
+
+```bash
+copilot
+
+> @src/utils/dateHelpers.js Before refactoring, generate tests for current behavior
+
+# Get tests first
+
+> Now refactor the module to use date-fns instead of moment.js
+
+# Refactor with confidence - tests verify behavior is preserved
+```
+
+---
+
+## Workflow 3: Debugging
+
+### The "Bug Detective" - AI Finds RELATED Bugs
+
+This is where context-aware debugging shines. Try this scenario with a payments file:
+
+```bash
+copilot
+
+> @samples/buggy-code/js/paymentProcessor.js
+>
+> Users report that $10.20 + $5.10 sometimes shows as $15.299999999999998
+> Debug why this happens
+```
+
+<details>
+<summary>🎬 See it in action!</summary>
+
+![Fix Bug Demo](images/fix-bug-demo.gif)
+
+</details>
+
+**What Copilot does**:
+```
+Root Cause: Floating-point arithmetic issue in JavaScript.
+
+Line 15: const total = amount1 + amount2
+JavaScript represents numbers as 64-bit floating point, which can't
+precisely represent some decimal values.
+
+Fix: Use integer cents internally, convert for display only:
+- Store amounts as cents (1020, 510)
+- Calculate: 1020 + 510 = 1530
+- Display: (1530 / 100).toFixed(2) = "$15.30"
+
+ADDITIONAL ISSUE FOUND:
+Line 28-34 has a race condition in the withdraw() function.
+Multiple concurrent withdrawals could overdraw the account
+because the balance check and update aren't atomic.
+
+Recommend: Add transaction locking or use database transactions.
+```
+
+**Why this matters**: You asked about one bug, and Copilot found **another critical bug** you didn't know existed. The AI reads the whole file and spots related issues.
+
+---
+
+### Understanding an Error
+
+```bash
+copilot
+
+> I'm getting this error:
+> TypeError: Cannot read property 'map' of undefined
+>     at UserList (src/components/UserList.jsx:15:23)
+>
+> @src/components/UserList.jsx Explain why and how to fix it
+```
+
+### Debugging with Test Case
+
+```bash
+copilot
+
+> @src/api/payments.js This endpoint returns 500 errors for this input:
+> {"amount": -100, "currency": "USD"}
+>
+> Debug this: explain the root cause and provide a fix with input validation
+```
+
+### Trace an Issue Through Code
+
+```bash
+copilot
+
+> Users report that orders are sometimes duplicated.
+> @src/services/orderService.js @src/api/orders.js @src/utils/idGenerator.js
+> Trace through the order creation flow and identify where duplication could occur
+```
+
+### Log Analysis
+
+```bash
+copilot
+
+> @logs/error.log Analyze these errors and identify:
+> 1. Most common error types
+> 2. Patterns in timing or frequency
+> 3. Likely root causes
+> 4. Suggested fixes
+```
+
+---
+
+## Workflow 4: Test Generation
+
+### The "Test Explosion" - 2 Tests vs 15+ Tests
+
+Manually writing tests, developers typically create 2-3 basic tests:
+- Test valid input
+- Test invalid input
+- Maybe one edge case
+
+Watch what happens when you ask Copilot:
+
+```bash
+copilot
+
+> @samples/buggy-code/js/userService.js Generate Jest tests for the login function covering:
+> - Valid login
+> - Invalid password
+> - Non-existent user
+> - null/undefined inputs
+> - SQL injection attempts
+> - Timing attack resistance
+```
+
+**What you get**: 15+ comprehensive tests including:
+
+```javascript
+describe('login', () => {
+  // Happy path
+  test('returns user object for valid credentials', ...);
+  test('generates valid JWT token', ...);
+
+  // Authentication failures
+  test('rejects invalid password', ...);
+  test('rejects non-existent user', ...);
+  test('rejects empty password', ...);
+  test('rejects null username', ...);
+
+  // Security tests
+  test('blocks SQL injection in username', ...);
+  test('blocks SQL injection in password', ...);
+  test('escapes special characters', ...);
+
+  // Timing attack resistance
+  test('constant-time comparison for passwords', ...);
+  test('same response time for valid vs invalid users', ...);
+
+  // Edge cases
+  test('handles unicode in password', ...);
+  test('handles very long passwords', ...);
+  test('handles concurrent login attempts', ...);
+});
+```
+
+**Result**: In 30 seconds, you get security tests that would take an hour to think through and write.
+
+---
+
+### Unit Tests
+
+```bash
+copilot
+
+> @src/utils/validation.js Generate comprehensive unit tests using Jest:
+> - Test all exported functions
+> - Include edge cases: null, undefined, empty strings
+> - Include boundary testing
+> - Include error cases
+```
+
+### Integration Tests
+
+```bash
+copilot
+
+> @src/api/users.js Generate integration tests using supertest:
+> - Test all endpoints
+> - Test authentication requirements
+> - Test validation errors
+> - Test successful operations
+> - Include setup and teardown
+```
+
+### Test for Specific Scenarios
+
+```bash
+copilot
+
+> @src/services/paymentService.js Generate tests for these scenarios:
+> - Successful payment
+> - Insufficient funds
+> - Invalid card
+> - Network timeout
+> - Duplicate transaction prevention
+```
+
+### Add Tests to Existing File
+
+```bash
+copilot
+
+> @src/utils/helpers.js @tests/helpers.test.js
+> The test file exists but doesn't cover the formatCurrency function.
+> Add tests for formatCurrency with edge cases
+```
+
+---
+
+## Workflow 5: Git Integration
+
+### Generate Commit Messages
+
+```bash
+
+# See what changed
+git diff --staged
+
+# Generate commit message
+copilot -p "Generate a conventional commit message for: $(git diff --staged)"
+
+# Output: "feat(auth): add JWT refresh token rotation
+#
+# - Implement automatic token refresh before expiration
+# - Add refresh token storage in httpOnly cookie
+# - Update auth middleware to handle refresh flow"
+```
+
+### Explain Changes
+
+```bash
+# What did this commit change?
+copilot -p "Explain what this commit does: $(git show HEAD --stat)"
+```
+
+### PR Description
+
+```bash
+# Generate PR description from branch changes
+copilot -p "Generate a pull request description for these changes:
+$(git log main..HEAD --oneline)
+
+Include:
+- Summary of changes
+- Why these changes were made
+- Testing done
+- Screenshots needed? (yes/no)"
+```
+
+### Review Before Push
+
+```bash
+# Last check before pushing
+copilot -p "Review these changes for issues before I push:
+$(git diff main..HEAD)"
+```
+
+### Using /delegate for Quick PRs
+
+The `/delegate` command is a powerful shortcut for making changes and creating PRs:
+
+```bash
+copilot
+
+> /delegate Add input validation to the login form
+
+# Copilot:
+# 1. Analyzes the codebase
+# 2. Makes the necessary changes
+# 3. Creates a pull request with the changes
+
+> /delegate Fix the typo in the README header
+
+# Great for small, well-defined changes
+```
+
+### Using /diff to Review Session Changes
+
+The `/diff` command shows all changes made during your current session:
+
+```bash
+copilot
+
+# After making some changes...
+> /diff
+
+# Shows a visual diff of all files modified in this session
+# Great for reviewing before committing
+```
+
+---
+
+## Putting It All Together: Bug Fix Workflow
+
+Here's a complete workflow for fixing a reported bug:
+
+```bash
+
+# 1. Understand the bug report
+copilot
+
+> Users report: 'Login fails with special characters in password'
+> @src/auth/login.js @src/utils/validation.js
+> Analyze and identify the likely cause
+
+# 2. Debug the issue (continuing in same session)
+> Based on the analysis, the issue is in password validation.
+> @src/utils/validation.js Show me line 34 and explain the regex issue
+
+> Fix the validatePassword function to handle special characters
+
+# 3. Generate tests for the fix
+> @src/utils/validation.js Generate tests specifically for:
+> - Passwords with special characters (!@#$%^&*)
+> - Passwords with unicode characters
+> - Passwords with spaces
+
+# 4. Generate commit message
+copilot -p "Generate commit message for: $(git diff --staged)"
+
+# Output: "fix(auth): handle special characters in password validation"
+```
+
+---
+
+## 🎯 Try It Yourself
+
+After completing the demos, try these variations:
+
+1. **Bug Detective Challenge**: Ask Copilot to debug the `getCachedUser` race condition in userService.js. Did it explain why checking `if (!userCache[userId])` is dangerous with async code?
+
+2. **Test Challenge**: Generate tests for the `createUser` function. Count how many edge cases Copilot includes that you wouldn't have thought of.
+
+3. **Commit Message Challenge**: Make any small change to a file, stage it (`git add .`), then run:
+   ```bash
+   copilot -p "Generate a conventional commit message for: $(git diff --staged)"
+   ```
+   Is the message better than what you would have written quickly?
+
+**Self-Check**: You understand development workflows when you can explain why "debug this bug" is more powerful than "find bugs" (context matters!).
+
+---
+
+## Sample Files for Practice
+
+The `samples/buggy-code/` folder contains intentionally buggy code in both JavaScript and Python. Use these to practice the workflows:
+
+### JavaScript Examples
+
+```bash
+copilot
+
+# Security audit on user service
+> @samples/buggy-code/js/userService.js Perform a security audit
+
+# Review payment processor
+> @samples/buggy-code/js/paymentProcessor.js Find all bugs
+```
+
+### Python Examples
+
+```bash
+copilot
+
+# Security audit on user service
+> @samples/buggy-code/python/user_service.py Perform a security audit
+
+# Review payment processor (includes Python-specific issues like pickle, eval, yaml)
+> @samples/buggy-code/python/payment_processor.py Find all bugs
+```
+
+The Python versions include language-specific vulnerabilities like:
+- Pickle deserialization attacks
+- `eval()` code injection
+- Insecure `yaml.load()`
+- Shell injection via `os.system()`
+- Weak MD5 password hashing
+
+---
+
+## Assignment
+
+### Main Challenge: Complete Development Workflow
+
+Using one of the sample files (`samples/buggy-code/js/userService.js` or `samples/buggy-code/python/user_service.py`):
+
+1. **Review**: Run a comprehensive security review
+2. **Identify**: Create a prioritized list of issues
+3. **Fix**: Refactor the most critical issue (SQL injection)
+4. **Test**: Generate tests for the fixed code
+5. **Commit**: Generate a proper commit message
+
+Document each step and the Copilot output.
+
+### Bonus Challenge: Full Bug Fix
+
+1. Create a file with an intentional bug of your choice
+2. Use Copilot to identify the bug
+3. Get a fix from Copilot
+4. Generate tests that would have caught the bug
+5. Generate a commit message that explains the fix
+
+---
+
+## Troubleshooting
+
+### Review seems incomplete
+
+Be more specific about what to look for:
+
+```bash
+copilot
+
+# Instead of:
+> Review @file.js
+
+# Try:
+> Review @file.js for security vulnerabilities, specifically: SQL injection, XSS, and authentication issues
+```
+
+### Tests don't match my framework
+
+Specify the framework:
+
+```bash
+copilot
+
+> @file.js Generate tests using Mocha and Chai (not Jest)
+```
+
+### Refactoring changes behavior
+
+Ask Copilot to preserve behavior:
+
+```bash
+copilot
+
+> @file.js Refactor to async/await. IMPORTANT: Maintain identical external behavior - no breaking changes
+```
+
+---
+
+## Key Takeaways
+
+1. **Code review** becomes comprehensive with specific prompts
+2. **Refactoring** is safer when you generate tests first
+3. **Debugging** benefits from showing Copilot the error AND the code
+4. **Test generation** should include edge cases and error scenarios
+5. **Git integration** automates commit messages and PR descriptions
+
+---
+
+## What's Next
+
+You've mastered the core workflows. Now let's make Copilot even more powerful.
+
+In **[Chapter 04: Agents and Custom Instructions](../04-agents-custom-instructions/README.md)**, you'll learn:
+
+- Creating specialized agents (frontend expert, security auditor)
+- AGENTS.md file format
+- Agent delegation patterns
+- Custom instruction files
+
+---
+
+**[← Back to Chapter 02](../02-context-conversations/README.md)** | **[Continue to Chapter 04 →](../04-agents-custom-instructions/README.md)**

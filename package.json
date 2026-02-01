@@ -1,0 +1,26 @@
+{
+  "name": "github-copilot-cli-course",
+  "version": "1.0.0",
+  "description": "GitHub Copilot CLI for Beginners - Course Materials",
+  "scripts": {
+    "update:reference": "node scripts/update-quick-reference.js",
+    "generate:pdf": "npx md-to-pdf QUICK-REFERENCE.md --config-file .md-to-pdf.json",
+    "scan:demos": "node scripts/scan-demos.js",
+    "create:tapes": "node scripts/create-tapes.js",
+    "generate:vhs": "node scripts/generate-demos.js",
+    "generate:demos": "npm run scan:demos && npm run create:tapes && npm run generate:vhs",
+    "generate:all": "npm run update:reference && npm run generate:pdf",
+    "refresh": "npm run update:reference && npm run generate:pdf"
+  },
+  "keywords": [
+    "github-copilot",
+    "cli",
+    "tutorial",
+    "course"
+  ],
+  "author": "Dan Wahlin",
+  "license": "MIT",
+  "devDependencies": {
+    "md-to-pdf": "^5.2.4"
+  }
+}

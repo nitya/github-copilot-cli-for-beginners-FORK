@@ -1,0 +1,47 @@
+name: Generate CLI Demos
+
+on:
+  push:
+    paths:
+      - 'demos/**/*.tape'
+  workflow_dispatch:
+
+jobs:
+  generate-demos:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install VHS dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ttyd ffmpeg
+
+      - name: Install VHS
+        run: |
+          wget https://github.com/charmbracelet/vhs/releases/latest/download/vhs_Linux_x86_64.tar.gz
+          tar -xzf vhs_Linux_x86_64.tar.gz
+          sudo mv vhs /usr/local/bin/
+          vhs --version
+
+      - name: Install asciinema
+        run: pip3 install asciinema
+
+      - name: Generate VHS recordings
+        run: |
+          chmod +x demos/scripts/generate-all.sh
+          ./demos/scripts/generate-all.sh
+
+      - name: Check for changes
+        id: check_changes
+        run: |
+          git diff --quiet demos/**/*.gif demos/**/*.mp4 || echo "changes=true" >> $GITHUB_OUTPUT
+
+      - name: Commit generated files
+        if: steps.check_changes.outputs.changes == 'true'
+        run: |
+          git config user.name "Demo Bot"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add demos/**/*.gif demos/**/*.mp4 demos/**/*.webm
+          git commit -m "chore: Update demo recordings [skip ci]"
+          git push
