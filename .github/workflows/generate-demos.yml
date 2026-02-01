@@ -2,13 +2,17 @@ name: Generate CLI Demos
 
 on:
   push:
-    paths:
-      - 'demos/**/*.tape'
+    branches:
+      - main
   workflow_dispatch:
 
 jobs:
   generate-demos:
     runs-on: ubuntu-latest
+    # Only run on commits starting with "release:" or manual dispatch
+    if: >
+      github.event_name == 'workflow_dispatch' ||
+      startsWith(github.event.head_commit.message, 'release:')
     steps:
       - uses: actions/checkout@v4
 
