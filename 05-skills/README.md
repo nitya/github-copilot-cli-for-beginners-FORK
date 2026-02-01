@@ -1,16 +1,16 @@
 # Chapter 05: Skills System
 
-> **What if every complex prompt you write could become a single command?**
+> **What if Copilot could automatically apply your team's best practices without you having to explain them every time?**
 
-In this chapter, you'll learn to turn repetitive prompts into reusable slash commands. While agents change *how* Copilot thinks, skills add new things Copilot can *do*. You'll see how `/commit` generates perfect conventional commit messages in seconds, create your own `/security-audit` skill that enforces OWASP checks, and build team-standard commands that ensure consistent code quality across your organization.
+In this chapter, you'll learn about Agent Skills: folders of instructions that Copilot automatically loads when relevant to your task. While agents change *how* Copilot thinks, skills teach Copilot *specific ways to complete tasks*. You'll create a security audit skill that Copilot applies whenever you ask about security, build team-standard review criteria that ensure consistent code quality, and learn how skills work across Copilot CLI, VS Code, and the Copilot coding agent.
 
 ## Learning Objectives
 
 By the end of this chapter, you'll be able to:
 
-- Find and install community skills
-- Use skills in your workflows
+- Understand how Agent Skills work (automatic loading, not manual commands)
 - Create custom skills with SKILL.md files
+- Use community skills from shared repositories
 - Know when to use skills vs agents vs MCP
 
 ---
@@ -36,72 +36,78 @@ Skills work the same way. They're specialized tools that extend what Copilot can
 
 ## Understanding Skills
 
-Skills are reusable prompts and instructions packaged as slash commands. Each skill becomes available as `/<skill-name>`:
+Agent Skills are folders containing instructions, scripts, and resources that Copilot **automatically loads when relevant** to your task. Unlike slash commands that you invoke explicitly, skills work behind the scenes. Copilot reads your prompt, checks if any skills match, and applies the relevant instructions automatically.
 
 ```bash
 copilot
 
-> /my-code-review
-# Runs your custom code review skill
+> Review src/api/users.js for security issues
+# Copilot detects this matches your "security-audit" skill
+# and automatically applies its OWASP checklist
 
-> /generate-tests
-# Runs test generation with your preferred settings
+> Generate tests for the login function
+# Copilot loads your "generate-tests" skill
+# and applies your preferred test structure
 
-> /security-audit
-# Runs security analysis with specific checklist
+> What are the code quality issues in this file?
+# Copilot loads your "code-review" skill
+# and checks against your team's standards
 ```
+
+> 💡 **Key Insight**: You don't type `/skill-name`. Instead, Copilot reads your skill descriptions and decides when to use them based on your prompt. This is why good skill descriptions are critical.
 
 ### Skills vs Agents vs MCP
 
 <img src="images/skills-agents-mcp-comparison.png" alt="Comparison diagram showing the differences between Agents, Skills, and MCP Servers and how they combine into your workflow" width="800"/>
 
-*Three ways to extend Copilot CLI: Agents change how it thinks, Skills add commands, MCP connects to external services*
+*Three ways to extend Copilot CLI: Agents change how it thinks, Skills provide task-specific instructions, MCP connects to external services*
 
 | Feature | What It Does | When to Use |
 |---------|--------------|-------------|
-| **Agents** | Changes how AI thinks | Need specialized expertise |
-| **Skills** | Adds new slash commands | Repetitive tasks with specific prompts |
+| **Agents** | Changes how AI thinks | Need specialized expertise across many tasks |
+| **Skills** | Provides task-specific instructions (auto-loaded) | Specific, repeatable tasks with detailed steps |
 | **MCP** | Connects external services | Need live data from APIs |
 
-**Quick rule**: If you find yourself writing the same complex prompt repeatedly, turn it into a skill.
+**Quick rule**: Use agents for broad expertise, skills for specific task instructions, and MCP for external data.
+
+> 📚 **Learn More**: See the [GitHub Copilot Skills documentation](https://github.com/github/awesome-copilot/blob/main/docs/README.skills.md) for the complete reference on skill formats and best practices.
 
 ---
 
-## Finding and Managing Skills
+## Finding and Using Community Skills
 
-### List Available Skills
+### Community Skill Repositories
+
+Pre-made skills are available from community repositories:
+
+- **[github/awesome-copilot](https://github.com/github/awesome-copilot)** - Official GitHub Copilot resources including skills documentation and examples
+
+### Installing a Community Skill
+
+To use a community skill, copy its folder to your skills directory:
 
 ```bash
-copilot
+# Clone the awesome-copilot repository
+git clone https://github.com/github/awesome-copilot.git /tmp/awesome-copilot
 
-> /skills list
+# Copy a specific skill to your skills directory
+cp -r /tmp/awesome-copilot/skills/code-review ~/.copilot/skills/
 
-Installed skills:
-  - my-code-review
-  - security-audit
-  - documentation-generator
-
-> /skills list --all
-# Shows built-in skills too
+# Or for project-specific use
+cp -r /tmp/awesome-copilot/skills/code-review .github/skills/
 ```
 
-### Install a Skill
+### Viewing Your Installed Skills
 
 ```bash
-> /skills add security-scanner
+# List global skills
+ls ~/.copilot/skills/
 
-Installing security-scanner...
-Done! Use with: /security-scanner
-```
+# List project skills
+ls .github/skills/
 
-### Get Skill Info
-
-```bash
-> /skills info my-code-review
-
-my-code-review
-Description: Comprehensive code review with security, performance, and maintainability checks
-Location: ~/.copilot/skills/my-code-review/SKILL.md
+# View a skill's instructions
+cat ~/.copilot/skills/code-review/SKILL.md
 ```
 
 <details>
@@ -111,176 +117,184 @@ Location: ~/.copilot/skills/my-code-review/SKILL.md
 
 </details>
 
-### Remove a Skill
+### How Copilot Finds Skills
 
-```bash
-> /skills remove old-skill
+Copilot automatically scans these locations for skills:
 
-Removed old-skill
-```
+| Location | Scope |
+|----------|-------|
+| `.github/skills/` | Project-specific (shared with team via git) |
+| `.claude/skills/` | Project-specific (Claude Code compatible) |
+| `~/.copilot/skills/` | Global (your personal skills) |
+| `~/.claude/skills/` | Global (Claude Code compatible) |
 
-### Reload After Changes
-
-When you edit a skill, reload to pick up changes:
-
-```bash
-> /skills reload
-
-Reloaded 3 skills from ~/.copilot/skills/
-```
-
-### Skills Command Reference
-
-| Command | What It Does |
-|---------|--------------|
-| `/skills list` | Show installed skills |
-| `/skills list --all` | Show all skills including built-ins |
-| `/skills add <name>` | Install a skill |
-| `/skills remove <name>` | Uninstall a skill |
-| `/skills info <name>` | Show skill details and location |
-| `/skills reload` | Reload skills after editing |
+> 💡 **Cross-Platform**: If you've already set up skills for Claude Code in `.claude/skills/`, Copilot picks them up automatically!
 
 ---
 
-## From 5 Minutes to 5 Seconds
+## From Manual Prompts to Automatic Expertise
 
-> 💡 **Why show benefits first?** Before diving into how to create skills, let's see *why* they're worth learning. Once you see the time savings, the "how" will make more sense.
+> 💡 **Why show benefits first?** Before diving into how to create skills, let's see *why* they're worth learning. Once you see the consistency gains, the "how" will make more sense.
 
-### Before Skills: The /commit Struggle
+### Before Skills: Inconsistent Reviews
 
-Every commit, you think:
-1. What changed? (look at diff)
-2. What type of change? (feat/fix/refactor?)
-3. What's the scope? (auth/api/ui?)
-4. How do I describe it? (write, rewrite, rewrite again)
-
-Time: **2-5 minutes** per commit. Mental energy: significant.
-
-### After Skills: One Command
+Every code review, you might forget something:
 
 ```bash
 copilot
 
-> /commit
+> Review this code for issues
+# Generic review - might miss your team's specific concerns
 ```
 
-**What happens**:
-```
-Analyzing staged changes...
+Or you write a long prompt every time:
 
-Changes detected:
-- Modified: src/auth/login.js (added refresh token logic)
-- Added: src/auth/refreshToken.js (new file)
-- Modified: tests/auth.test.js (new tests)
-
-Generated commit message:
-feat(auth): add JWT refresh token rotation
-
-- Implement automatic token refresh before expiration
-- Add refresh token storage in httpOnly cookie
-- Update auth tests for new refresh flow
-
-Closes #42
+```bash
+> Review this code checking for SQL injection, XSS, hardcoded secrets,
+> missing error handling, functions over 50 lines, console.log statements,
+> and make sure all async operations have try/catch blocks...
 ```
 
-Time: **3 seconds**. Mental energy: zero.
+Time: **30+ seconds** to type. Consistency: **varies by memory**.
 
-**The difference**: What took 5 minutes of context-switching now takes a single command.
+### After Skills: Automatic Best Practices
 
----
-
-## Consistency at Scale: The /pr-review Skill
-
-Imagine your team has a 10-point PR checklist. Without a skill:
+With a `code-review` skill installed, just ask naturally:
 
 ```bash
 copilot
 
-> Review this PR for:
-> 1. Security vulnerabilities
-> 2. Test coverage
-> 3. No console.log statements
-> 4. Error handling
-> 5. TypeScript strict compliance
-> 6. No TODOs without issue references
-> 7. API documentation
-> 8. Breaking changes documented
-> 9. Migration steps if needed
-> 10. Performance implications
+> Review the authentication code for issues
 ```
 
-**Time to type**: 30+ seconds. **Easy to forget items**: Very.
+**What happens behind the scenes**:
+1. Copilot sees "review" and "issues" in your prompt
+2. Checks skill descriptions, finds your `code-review` skill matches
+3. Automatically loads your team's 15-point checklist
+4. Applies all checks without you listing them
 
-With a `/pr-review` skill:
+**Output**:
+```
+Code Review: src/auth/login.js
 
-```bash
-> /pr-review @src/
+[CRITICAL] SQL Injection (line 23)
+  Query uses string concatenation
+  Fix: Use parameterized queries
+
+[HIGH] Missing rate limiting
+  Login endpoint has no rate limiting
+  Fix: Add express-rate-limit middleware
+
+[MEDIUM] Console.log in production code (line 45)
+  Debug statement should be removed
+
+✅ Error handling: All async operations have try/catch
+✅ Function length: All functions under 50 lines
 ```
 
-**Time**: 2 seconds. **Consistent every time**: Yes.
-
-The skill encodes your team's standards so nobody forgets step 6 or 9.
+**The difference**: Your team's standards are applied automatically, every time, without typing them out.
 
 ---
 
-## Using Skills
+## Consistency at Scale: Team PR Review Skill
 
-Skills are invoked as slash commands. When you type `/skill-name`, Copilot loads the skill's instructions and applies them to your request.
+Imagine your team has a 10-point PR checklist. Without a skill, every developer must remember all 10 points, and someone always forgets #6 or #9.
 
-### Basic Usage
+With a `pr-review` skill, the entire team gets consistent reviews:
 
 ```bash
 copilot
 
-> /security-audit @src/api/
-
-# The security-audit skill applies its specialized
-# checklist and analysis patterns to the files
+> Can you review this PR?
 ```
 
-### Skills with Context
+Copilot automatically loads your team's `pr-review` skill and checks all 10 points:
+
+```
+PR Review: feature/user-auth
+
+## Security ✅
+- No hardcoded secrets
+- Input validation present
+- Parameterized queries used
+
+## Code Quality ⚠️
+- [WARN] console.log on line 45 - remove before merge
+- [WARN] TODO on line 78 missing issue reference
+
+## Testing ✅
+- New tests added
+- Edge cases covered
+
+## Documentation ❌
+- [FAIL] Breaking change not documented in CHANGELOG
+- [FAIL] API changes need OpenAPI spec update
+```
+
+**The power**: Every team member applies the same standards automatically. New hires don't need to memorize the checklist because the skill handles it.
+
+---
+
+## How Skills Get Triggered
+
+Skills activate automatically based on your prompt matching the skill's description. You don't invoke them explicitly. Copilot decides when they're relevant.
+
+### Automatic Matching
 
 ```bash
-> @src/auth/login.js /my-code-review
+copilot
 
-# Provides file context, then applies the skill
+> Check this code for security vulnerabilities
+# Copilot matches "security vulnerabilities" to your
+# security-audit skill and loads its OWASP checklist
+
+> @src/api/users.js Are there any issues with this file?
+# Copilot loads your code-review skill based on
+# "issues" matching the skill's description
 ```
+
+### Writing Good Skill Descriptions
+
+The `description` field in your SKILL.md is crucial because it's how Copilot decides whether to use your skill:
+
+```markdown
+---
+name: security-audit
+description: Use for security reviews, vulnerability scanning,
+  checking for SQL injection, XSS, authentication issues,
+  OWASP Top 10 vulnerabilities, and security best practices
+---
+```
+
+> 💡 **Tip**: Include keywords in your description that match how you naturally ask questions. If you say "security review," include "security review" in the description.
 
 ### Combining Skills with Agents
 
+Skills and agents work together. The agent provides expertise, the skill provides specific instructions:
+
 ```bash
-# Start with an agent
+# Start with a backend agent
 copilot --agent backend
 
-> /generate-tests @src/services/userService.js
-
-# The backend agent's expertise combines with
-# the test generation skill
-```
-
-### Skills with Arguments
-
-Skills can accept arguments after the skill name:
-
-```bash
-> /security-audit @src/api/ --severity high
-
-# Some skills support flags or parameters
-# Check skill documentation with /skills info
+> Review the API endpoints for issues
+# Backend agent's Node.js/Express expertise combines
+# with your code-review skill's checklist
 ```
 
 ---
 
 ## Skill Locations
 
-Skills are discovered from these locations (in order of priority):
+Skills are discovered from multiple locations. Project-specific skills take priority over global ones:
 
-| Location | Scope | Priority |
-|----------|-------|----------|
-| `.github/skills/` | Project-specific | Highest (overrides global) |
-| `~/.copilot/skills/` | Global (all projects) | Lower |
+| Location | Scope | Priority | Use Case |
+|----------|-------|----------|----------|
+| `.github/skills/` | Project | Highest | Team standards, shared via git |
+| `.claude/skills/` | Project | High | Claude Code compatible skills |
+| `~/.copilot/skills/` | Global | Lower | Personal skills across all projects |
+| `~/.claude/skills/` | Global | Lowest | Claude Code personal skills |
 
-**Pro tip**: Create project-specific skills in `.github/skills/` to share them with your team via git.
+**Pro tip**: Create project-specific skills in `.github/skills/` to share them with your team via git. They'll be version-controlled and available to everyone who clones the repo.
 
 ---
 
@@ -565,82 +579,93 @@ After completing the demos, try these variations:
 
 3. **Team Skill Challenge**: Think about your team's code review checklist. Could you encode it as a skill? Write down 3 things the skill should always check.
 
-**Self-Check**: You understand skills when you can explain the difference between a skill and an agent (skills are COMMANDS, agents change HOW the AI thinks).
+**Self-Check**: You understand skills when you can explain why the `description` field matters (it's how Copilot decides whether to load your skill).
 
 ---
 
 ## Assignment
 
-### Main Challenge: Create Your Own Skills
+### Main Challenge: Create Your Own Skill
 
-1. Run `/skills list` to see what's installed
+1. List your current skills: `ls ~/.copilot/skills/`
 2. Create a skill that solves a repetitive task you do
 3. Your skill should have:
-   - Clear name and description
+   - Clear name and description (description is crucial for matching!)
    - Specific instructions for the task
    - Expected output format
-4. Test the skill on real code
+4. Test the skill by asking Copilot a question that should trigger it
 
-**Success criteria**: You have a working custom skill that you'll actually use.
+**Success criteria**: You have a working custom skill that Copilot automatically applies when relevant.
 
 ### Bonus Challenge: Share Your Skill
 
 1. Document your skill with examples
-2. Create a GitHub repo with the `copilot-skill` topic
-3. Include installation instructions
+2. Create a GitHub repo with the `copilot-skill` or `agent-skill` topic
+3. Include a README explaining what prompts trigger the skill
 
 ---
 
 ## Troubleshooting
 
-### Skill not found
+### Skill not being used
 
-Check the skill directory location:
+If Copilot isn't using your skill when expected:
 
-```bash
-# Global skills
-ls ~/.copilot/skills/
+1. **Check the description**: Does it match how you're asking?
+   ```markdown
+   # Bad: Too vague
+   description: Reviews code
 
-# Project skills
-ls .github/skills/
+   # Good: Includes trigger words
+   description: Use for code reviews, checking code quality,
+     finding bugs, security issues, and best practice violations
+   ```
 
-# Reload skills after changes
-copilot
-> /skills reload
+2. **Verify the file location**:
+   ```bash
+   # Global skills
+   ls ~/.copilot/skills/
+
+   # Project skills
+   ls .github/skills/
+   ```
+
+3. **Check SKILL.md format**: Frontmatter is required:
+   ```markdown
+   ---
+   name: skill-name
+   description: What the skill does and when to use it
+   ---
+
+   # Instructions here
+   ```
+
+### Skill not appearing
+
+Verify the folder structure:
+```
+~/.copilot/skills/
+└── my-skill/           # Folder name
+    └── SKILL.md        # Must be exactly SKILL.md (case-sensitive)
 ```
 
-### Skill not appearing in list
+### Testing if a skill loads
 
-Verify the SKILL.md format:
-
-```markdown
----
-name: skill-name
-description: What the skill does
----
-
-# Instructions here
-```
-
-The frontmatter (between `---` markers) is required.
-
-### Changes not taking effect
-
-Reload skills after editing:
-
+Ask Copilot directly:
 ```bash
-> /skills reload
+> What skills do you have available for code review?
+# Copilot will describe relevant skills it found
 ```
 
 ---
 
 ## Key Takeaways
 
-1. **Skills** add new slash commands via `/<skill-name>`
-2. **Community skills** can be installed with `/skills add`
-3. **Custom skills** are SKILL.md files in `~/.copilot/skills/` or `.github/skills/`
-4. **Skill format** uses YAML frontmatter with markdown instructions
-5. **Use skills** for repetitive prompts that need consistent behavior
+1. **Skills are automatic**: Copilot loads them when your prompt matches the skill's description
+2. **SKILL.md format**: YAML frontmatter (name, description) plus markdown instructions
+3. **Locations matter**: `.github/skills/` for team sharing, `~/.copilot/skills/` for personal use
+4. **Cross-platform**: Same skill format works in Copilot CLI, VS Code, and Claude Code
+5. **Description is key**: Write descriptions that match how you naturally ask questions
 
 ---
 
