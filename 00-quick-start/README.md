@@ -41,7 +41,13 @@ If you see "You don't have access to GitHub Copilot," you'll need to subscribe o
 
 Choose the method that works for your system:
 
-### macOS/Linux (Homebrew) - Recommended
+### All Platforms (npm)
+
+```bash
+a
+```
+
+### macOS/Linux (Homebrew)
 
 ```bash
 brew install copilot-cli
@@ -51,12 +57,6 @@ brew install copilot-cli
 
 ```bash
 winget install GitHub.Copilot
-```
-
-### All Platforms (npm)
-
-```bash
-npm install -g @github/copilot
 ```
 
 ### macOS/Linux (Install Script)

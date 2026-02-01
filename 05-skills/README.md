@@ -298,18 +298,18 @@ copilot --agent backend
 
 Skills are discovered from multiple locations. Project-specific skills take priority over global ones:
 
-| Location | Scope | Priority | Use Case |
-|----------|-------|----------|----------|
-| `.github/skills/` | Project | Highest | Team standards, shared via git |
-| `.claude/skills/` | Project | High | Claude Code compatible skills |
-| `~/.copilot/skills/` | Global | Lower | Personal skills across all projects |
-| `~/.claude/skills/` | Global | Lowest | Claude Code personal skills |
+| Location | Scope | Use Case |
+|----------|-------|----------|
+| `.github/skills/` | Project | Team standards, shared via git |
+| `.claude/skills/` | Project | Claude Code compatible skills |
+| `~/.copilot/skills/` | Global | Personal skills across all projects |
+| `~/.claude/skills/` | Global | Claude Code personal skills |
 
 **Pro tip**: Create project-specific skills in `.github/skills/` to share them with your team via git. They'll be version-controlled and available to everyone who clones the repo.
 
 ---
 
-## Managing Skills with /skills
+## Managing Skills with the `/skills` Command
 
 Use the `/skills` command to manage your installed skills:
 
@@ -354,6 +354,8 @@ After creating or editing a skill's SKILL.md file, run `/skills reload` to pick 
 Skills reloaded successfully.
 ```
 
+> 💡 **Good to know**: Skills remain effective even after using `/compact` to summarize your conversation history. No need to reload after compacting.
+
 ---
 
 ## Creating Custom Skills
@@ -376,6 +378,7 @@ Skills use a simple markdown format with YAML frontmatter:
 ---
 name: my-code-review
 description: Comprehensive code review with security, performance, and maintainability checks
+license: MIT
 ---
 
 # Code Review
@@ -733,7 +736,7 @@ Ask Copilot directly:
 ## Key Takeaways
 
 1. **Skills are automatic**: Copilot loads them when your prompt matches the skill's description
-2. **SKILL.md format**: YAML frontmatter (name, description) plus markdown instructions
+2. **SKILL.md format**: YAML frontmatter (name, description, optional license) plus markdown instructions
 3. **Locations matter**: `.github/skills/` for team sharing, `~/.copilot/skills/` for personal use
 4. **Cross-platform**: Same skill format works in Copilot CLI, VS Code, and Claude Code
 5. **Description is key**: Write descriptions that match how you naturally ask questions
@@ -742,7 +745,7 @@ Ask Copilot directly:
 
 ## What's Next
 
-Skills extend what Copilot can do with custom commands. But what about connecting to external services? That's where MCP comes in.
+Skills extend what Copilot can do with auto-loaded instructions. But what about connecting to external services? That's where MCP comes in.
 
 In **[Chapter 06: MCP Servers](../06-mcp-servers/README.md)**, you'll learn:
 

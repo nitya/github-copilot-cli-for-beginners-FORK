@@ -447,19 +447,20 @@ copilot
 
 # Example output (your available models will vary):
 Available models:
-  - gpt-4o (default)
-  - claude-3.5-sonnet
-  - gpt-4o-mini *
-
-  * Does not consume premium requests
+  - Claude Sonnet 4.5 (default)
+  - Claude Opus 4.5
+  - Gemini 3 Pro
+  - GPT-5.2 Codex
+  - GPT-5.1-Codex-Mini
+  - More ...
 ```
 
 > ⚠️ **Important**: The models shown above are examples only. Available models change frequently and vary based on your subscription, region, and GitHub Copilot updates. Always run `/model` to see your current options.
 
 ```bash
 # Switch to a specific model
-> /model gpt-4o
-Model switched to gpt-4o
+> /model gpt-5.2-codex
+Model switched to gpt-5.2-codex
 
 # Now use the new model
 > Write a creative story opening about a space explorer
@@ -467,7 +468,6 @@ Model switched to gpt-4o
 
 **Tips**:
 - Try the same prompt with different models to see how their outputs differ
-- Models marked with `*` don't consume your monthly premium request quota
 - Use `/model` to see currently available models (availability changes frequently)
 
 ---
