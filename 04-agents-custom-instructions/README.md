@@ -144,6 +144,7 @@ Create `my-reviewer.agent.md` in your project folder:
 
 ```markdown
 ---
+name: my-reviewer
 description: Code reviewer focused on bugs and security issues
 ---
 
@@ -255,6 +256,7 @@ Create separate agent files for different specialties. Here are examples for a c
 
 ```markdown
 ---
+name: frontend
 description: Frontend specialist for React/TypeScript projects with focus on accessibility and performance
 tools: ["read", "edit", "search"]
 ---
@@ -286,6 +288,7 @@ You are a frontend specialist for this React/TypeScript project.
 
 ```markdown
 ---
+name: backend
 description: Backend API specialist for Node.js/Express with security focus
 tools: ["read", "edit", "search", "execute"]
 ---
@@ -317,6 +320,7 @@ You are a backend API specialist for this Node.js/Express project.
 
 ```markdown
 ---
+name: testing
 description: Testing specialist for comprehensive test coverage and quality assurance
 ---
 
@@ -346,6 +350,7 @@ You are a testing specialist focused on quality assurance.
 
 ```markdown
 ---
+name: devops
 description: DevOps specialist for CI/CD pipelines and infrastructure automation
 ---
 
@@ -726,6 +731,7 @@ mkdir -p ~/.copilot/agents
 # Create a code reviewer agent
 cat > ~/.copilot/agents/reviewer.agent.md << 'EOF'
 ---
+name: reviewer
 description: Senior code reviewer focused on security and best practices
 ---
 
@@ -747,6 +753,7 @@ EOF
 # Create a documentation agent
 cat > ~/.copilot/agents/documentor.agent.md << 'EOF'
 ---
+name: documentor
 description: Technical writer for clear and complete documentation
 ---
 
@@ -856,6 +863,7 @@ You improve performance of existing code.
 
 ```markdown
 ---
+name: project-team
 description: A team of specialized agents for this project
 ---
 

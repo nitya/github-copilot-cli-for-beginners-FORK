@@ -122,6 +122,7 @@ Create `AGENTS.md` or `*.agent.md` files:
 
 ```markdown
 ---
+name: frontend
 description: Frontend specialist with expertise in React and TypeScript
 tools: ["read", "edit", "search"]
 ---
@@ -137,6 +138,8 @@ You are a frontend specialist with expertise in React and TypeScript.
 ```
 
 > 💡 **Required**: The `description` field in YAML frontmatter is required. Other fields like `name`, `tools`, and `target` are optional. Tool aliases: `read`, `edit`, `search`, `execute`, `web`, `agent`.
+>
+> 📖 **Official docs**: [Custom agents configuration](https://docs.github.com/en/copilot/reference/custom-agents-configuration)
 
 ---
 

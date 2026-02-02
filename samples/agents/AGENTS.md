@@ -8,6 +8,7 @@ Each agent file requires YAML frontmatter with at least a `description` field:
 
 ```markdown
 ---
+name: my-agent
 description: Brief description of what this agent does
 tools: ["read", "edit", "search"]  # Optional: limit available tools
 ---
@@ -30,6 +31,8 @@ Agent instructions go here...
 **Tool Aliases**: `read`, `edit`, `search`, `execute` (shell), `web`, `agent`
 
 > 💡 **Note**: The `model` property works in VS Code but is not yet supported in Copilot CLI.
+>
+> 📖 **Official docs**: [Custom agents configuration](https://docs.github.com/en/copilot/reference/custom-agents-configuration)
 
 ## Agent File Locations
 
@@ -50,6 +53,7 @@ Save as `~/.copilot/agents/frontend.agent.md`:
 
 ```markdown
 ---
+name: frontend
 description: Frontend development specialist with React and TypeScript expertise
 tools: ["read", "edit", "search"]
 ---
@@ -90,6 +94,7 @@ Save as `~/.copilot/agents/backend.agent.md`:
 
 ```markdown
 ---
+name: backend
 description: Backend API specialist focused on Node.js and security
 tools: ["read", "edit", "search", "execute"]
 ---
@@ -132,6 +137,7 @@ Save as `~/.copilot/agents/testing.agent.md`:
 
 ```markdown
 ---
+name: testing
 description: Quality assurance specialist focused on comprehensive testing
 ---
 
@@ -169,6 +175,7 @@ Save as `~/.copilot/agents/devops.agent.md`:
 
 ```markdown
 ---
+name: devops
 description: DevOps and infrastructure specialist for CI/CD and cloud automation
 ---
 
