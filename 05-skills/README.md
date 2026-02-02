@@ -141,15 +141,34 @@ WITH BOTH (security agent + security-audit skill):
 
 ## Finding and Using Community Skills
 
+### Using Plugins to Install Skills
+
+The `/plugin` command provides access to a marketplace of community extensions, including skills, agents, and MCP servers:
+
+```bash
+copilot
+
+> /plugin list
+# Shows installed plugins
+
+> /plugin marketplace
+# Browse available plugins
+
+> /plugin install <plugin-name>
+# Install a plugin from the marketplace
+```
+
+Plugins can bundle multiple capabilities together - a single plugin might include related skills, agents, and MCP server configurations that work together.
+
 ### Community Skill Repositories
 
-Pre-made skills are available from community repositories:
+Pre-made skills are also available from community repositories:
 
 - **[github/awesome-copilot](https://github.com/github/awesome-copilot)** - Official GitHub Copilot resources including skills documentation and examples
 
-### Installing a Community Skill
+### Installing a Community Skill Manually
 
-To use a community skill, copy its folder to your skills directory:
+To use a community skill without the plugin system, copy its folder to your skills directory:
 
 ```bash
 # Clone the awesome-copilot repository
@@ -161,26 +180,6 @@ cp -r /tmp/awesome-copilot/skills/code-review ~/.copilot/skills/
 # Or for project-specific use
 cp -r /tmp/awesome-copilot/skills/code-review .github/skills/
 ```
-
-### Viewing Your Installed Skills
-
-```bash
-# List global skills
-ls ~/.copilot/skills/
-
-# List project skills
-ls .github/skills/
-
-# View a skill's instructions
-cat ~/.copilot/skills/code-review/SKILL.md
-```
-
-<details>
-<summary>🎬 See it in action!</summary>
-
-![List Skills Demo](images/list-skills-demo.gif)
-
-</details>
 
 ### How Copilot Finds Skills
 
@@ -396,6 +395,13 @@ Name: security-audit
 Description: Security-focused code review checking OWASP Top 10 vulnerabilities
 Location: ~/.copilot/skills/security-audit/
 ```
+
+<details>
+<summary>See it in action!</summary>
+
+![Skills List Demo](images/skills-list-demo.gif)
+
+</details>
 
 ### When to Use /skills reload
 

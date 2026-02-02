@@ -74,6 +74,7 @@
 | `/user` | Manage GitHub accounts |
 | `/feedback` | Submit feedback to GitHub |
 | `/init` | Initialize Copilot instructions for repository |
+| `/experimental` | Toggle experimental features on/off |
 
 ---
 

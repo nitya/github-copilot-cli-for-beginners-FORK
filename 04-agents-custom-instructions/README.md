@@ -603,7 +603,21 @@ Good agent names are short, descriptive, and indicate the specialty:
 
 ## Project-Level Instructions
 
-Custom instructions let you encode team standards so Copilot applies them automatically. There are two ways to set them up:
+Custom instructions let you encode team standards so Copilot applies them automatically.
+
+### Instruction File Formats
+
+Copilot supports multiple instruction file formats for cross-platform compatibility:
+
+| File | Scope | Notes |
+|------|-------|-------|
+| `AGENTS.md` | Project root or nested | **Cross-platform standard** - works with Copilot and other AI assistants |
+| `.github/copilot-instructions.md` | Project | GitHub Copilot specific |
+| `.github/instructions/*.instructions.md` | Project | Granular, topic-specific instructions |
+| `*.agent.md` | Anywhere | Individual agent definitions |
+| `CLAUDE.md`, `GEMINI.md` | Project root | Supported for compatibility |
+
+> 💡 **Cross-Platform Tip**: If you want your instructions to work across multiple AI coding tools, use `AGENTS.md`. It's an [open standard](https://agents.md/) supported by GitHub Copilot and many others.
 
 ### Quick Setup with /init
 
@@ -616,9 +630,9 @@ copilot
 
 This generates configuration files that customize Copilot's behavior for your project.
 
-### COPILOT.md File
+### AGENTS.md File (Recommended)
 
-The `/init` command creates a `COPILOT.md` (or similar) file in your repo. This file contains project-specific instructions:
+Create an `AGENTS.md` file in your repository root. This is the recommended approach because it works across multiple AI coding tools:
 
 ```markdown
 # Project Instructions
