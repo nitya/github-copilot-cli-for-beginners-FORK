@@ -1,6 +1,30 @@
 # Sample Agent Definitions
 
-This folder shows how to define specialized agents for GitHub Copilot CLI.
+This folder contains ready-to-use agent templates for GitHub Copilot CLI.
+
+## Quick Start
+
+```bash
+# Copy an agent to your personal agents folder
+cp hello-world.agent.md ~/.copilot/agents/
+
+# Or copy to your project for team sharing
+cp frontend.agent.md .github/agents/
+```
+
+## Sample Files in This Folder
+
+| File | Description | Best For |
+|------|-------------|----------|
+| `hello-world.agent.md` | Minimal example (11 lines) | Learning the format |
+| `code-reviewer.agent.md` | Code review specialist | PR reviews, bug hunting |
+| `frontend.agent.md` | React/TypeScript expert | Frontend development |
+
+## Finding More Agents
+
+- **[github/awesome-copilot](https://github.com/github/awesome-copilot)** - Official GitHub resources with community agents and instructions
+
+---
 
 ## Agent File Format
 

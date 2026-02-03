@@ -37,6 +37,8 @@ By the end of this chapter, you'll be able to:
 
 Once you've tried the built-in agents, read on to create your own custom agents.
 
+> **Ready-to-use templates**: Check out the [samples/agents](../samples/agents/) folder for copy-paste agent files you can customize immediately.
+
 ---
 
 ## Real-World Analogy: Hiring Specialists
@@ -818,43 +820,20 @@ copilot --agent frontend
 
 ## Sample Files
 
-### Sample AGENTS.md
+Ready-to-use agent templates are available in the [samples/agents/](../samples/agents/) folder:
 
-Save this as `samples/agents/AGENTS.md`:
+| File | Description |
+|------|-------------|
+| `hello-world.agent.md` | Minimal example (11 lines) - start here |
+| `code-reviewer.agent.md` | Code review specialist with severity levels |
+| `frontend.agent.md` | React/TypeScript frontend expert |
 
-```markdown
-# Sample AGENTS.md
-
-## Analyst
-
-You analyze code and provide insights without making changes.
-
-**Analysis types:**
-- Complexity analysis (cyclomatic complexity)
-- Dependency analysis (coupling, cohesion)
-- Security analysis (OWASP top 10)
-- Performance analysis (Big O, bottlenecks)
-
-## Refactorer
-
-You improve code structure without changing behavior.
-
-**Refactoring principles:**
-- Single Responsibility Principle
-- Extract method for long functions (>20 lines)
-- Replace conditionals with polymorphism
-- Remove dead code
-
-## Optimizer
-
-You improve performance of existing code.
-
-**Optimization targets:**
-- Reduce time complexity
-- Minimize memory allocations
-- Eliminate redundant operations
-- Add caching where appropriate
+```bash
+# Quick install: copy an agent to your personal folder
+cp samples/agents/code-reviewer.agent.md ~/.copilot/agents/
 ```
+
+For more community agents, see [github/awesome-copilot](https://github.com/github/awesome-copilot)
 
 ---
 

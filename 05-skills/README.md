@@ -58,6 +58,8 @@ copilot
 
 > 💡 **Key Insight**: Skills are **automatically triggered** based on your prompt matching the skill's description. You don't need to type a special command - just ask naturally, and Copilot applies relevant skills behind the scenes.
 
+> **Ready-to-use templates**: Check out the [samples/skills](../samples/skills/) folder for copy-paste skills you can use immediately.
+
 ### Direct Slash Command Invocation
 
 While auto-triggering is the primary way skills work, you can also **invoke skills directly** using their name as a slash command:
