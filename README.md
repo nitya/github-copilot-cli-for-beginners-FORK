@@ -66,9 +66,9 @@ This course focuses on **GitHub Copilot CLI**, bringing AI assistance directly t
 
 Before starting, ensure you have:
 
-- [ ] **GitHub account**: [Create one free](https://github.com/signup)
-- [ ] **GitHub Copilot access**: [Monthly subscription](https://github.com/features/copilot/plans) or [Free for students/teachers](https://education.github.com/pack)
-- [ ] **Terminal basics**: Comfortable with `cd`, `ls`, running commands
+✅ **GitHub account**: [Create one free](https://github.com/signup)
+✅ **GitHub Copilot access**: [Free offering](https://github.com/features/copilot/plans), [Monthly subscription](https://github.com/features/copilot/plans), or [Free for students/teachers](https://education.github.com/pack)
+✅ **Terminal basics**: Comfortable with `cd`, `ls`, running commands
 
 ## Quick Start
 

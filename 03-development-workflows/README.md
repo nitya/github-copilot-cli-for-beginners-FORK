@@ -665,13 +665,11 @@ copilot
 
 </details>
 
-### Bonus Challenge: Full Bug Fix
+### Bonus Challenge: Create an application with the Copilot CLI
 
-1. Create a file with an intentional bug of your choice
-2. Use Copilot to identify the bug
-3. Get a fix from Copilot
-4. Generate tests that would have caught the bug
-5. Generate a commit message that explains the fix
+This quick exercise shows developers how to use GitHub Copilot CLI to create issues, generate code, and collaborate from the terminal while building a Node.js calculator app. You will install the CLI, use templates and agents, and practice iterative, command-line driven development in under an hour.
+
+##### <img src="../images/github-skills-logo.png" width="28" align="center" /> [Start the "Create applications with the Copilot CLI" Skills Exercise](https://github.com/skills/create-applications-with-the-copilot-cli)
 
 ---
 
