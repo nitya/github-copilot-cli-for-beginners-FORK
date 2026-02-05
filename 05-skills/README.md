@@ -64,19 +64,9 @@ copilot
 
 ### Coming from Chapter 04? Agents vs Skills
 
-If you just learned about agents, here's how skills differ:
+If you just learned about agents: **agents are who helps you** (expertise), **skills are what procedure they follow** (consistency). You can combine both for maximum power!
 
-| | Agents | Skills |
-|---|---|---|
-| **Analogy** | Hiring a specialist (frontend expert) | Giving someone a detailed checklist |
-| **Invocation** | **Manual** - `/agent` or `--agent name` | **Automatic** - matches your prompt |
-| **Best for** | Broad expertise (frontend, security) | Specific tasks (code review checklist) |
-
-**The key insight**: An agent is *who* is helping you (expertise). A skill is *what procedure* they follow (consistency).
-
-**Pro tip**: Combine both for maximum power! A security agent using your security-audit skill.
-
-> 📖 For a detailed comparison, see the [Preview: Agents vs Skills](../04-agents-custom-instructions/README.md#preview-agents-vs-skills) section in Chapter 04.
+> 📖 For a detailed comparison table, see [Preview: Agents vs Skills](../04-agents-custom-instructions/README.md#preview-agents-vs-skills) in Chapter 04.
 
 ### Direct Slash Command Invocation
 
@@ -286,27 +276,9 @@ PR Review: feature/user-auth
 
 ---
 
-## How Skills Get Triggered
+## Writing Good Skill Descriptions
 
-Skills activate automatically based on your prompt matching the skill's description. You don't invoke them explicitly. Copilot decides when they're relevant.
-
-### Automatic Matching
-
-```bash
-copilot
-
-> Check this code for security vulnerabilities
-# Copilot matches "security vulnerabilities" to your
-# security-audit skill and loads its OWASP checklist
-
-> @samples/src/api/users.js Are there any issues with this file?
-# Copilot loads your code-review skill based on
-# "issues" matching the skill's description
-```
-
-### Writing Good Skill Descriptions
-
-The `description` field in your SKILL.md is crucial because it's how Copilot decides whether to use your skill:
+The `description` field in your SKILL.md is crucial! It's how Copilot decides whether to load your skill:
 
 ```markdown
 ---
@@ -317,7 +289,7 @@ description: Use for security reviews, vulnerability scanning,
 ---
 ```
 
-> 💡 **Tip**: Include keywords in your description that match how you naturally ask questions. If you say "security review," include "security review" in the description.
+> 💡 **Tip**: Include keywords that match how you naturally ask questions. If you say "security review," include "security review" in the description.
 
 ### Combining Skills with Agents
 
@@ -536,7 +508,11 @@ copilot
 
 ## Hands-On Examples
 
+Here are two examples showing different skill patterns. More examples are available in [samples/skills/](../samples/skills/).
+
 ### Example 1: Test Generation Skill
+
+A skill that ensures consistent test structure across your codebase:
 
 ```bash
 # Create skill
@@ -573,76 +549,9 @@ Provide complete, runnable test file.
 EOF
 ```
 
-### Example 2: Documentation Skill
+### Example 2: Team PR Review Skill
 
-```bash
-mkdir -p ~/.copilot/skills/document-api
-
-cat > ~/.copilot/skills/document-api/SKILL.md << 'EOF'
----
-name: document-api
-description: Generate API documentation in OpenAPI format
----
-
-# API Documentation
-
-Generate documentation including:
-
-## For Each Endpoint
-- HTTP method and path
-- Description of what it does
-- Request parameters (query, path, body)
-- Request body schema with examples
-- Response schemas for all status codes
-- Example requests and responses
-
-## Format
-Output as OpenAPI 3.0 YAML.
-EOF
-```
-
-### Example 3: Commit Message Skill
-
-```bash
-mkdir -p ~/.copilot/skills/commit-msg
-
-cat > ~/.copilot/skills/commit-msg/SKILL.md << 'EOF'
----
-name: commit-msg
-description: Generate conventional commit messages
----
-
-# Commit Message Generation
-
-Generate commit messages following Conventional Commits:
-
-## Format
-```
-<type>(<scope>): <description>
-
-[optional body]
-
-[optional footer]
-```
-
-## Types
-- feat: New feature
-- fix: Bug fix
-- docs: Documentation only
-- style: Formatting, no code change
-- refactor: Code change that neither fixes nor adds
-- perf: Performance improvement
-- test: Adding tests
-- chore: Maintenance
-
-## Rules
-- Subject line max 72 characters
-- Use imperative mood ("add" not "added")
-- Body explains what and why, not how
-EOF
-```
-
-### Example 4: Team PR Review Skill
+A skill that enforces consistent PR review standards across your team:
 
 ```bash
 mkdir -p ~/.copilot/skills/pr-review

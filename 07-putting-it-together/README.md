@@ -472,67 +472,11 @@ $COMMITS
 Include: Summary, Changes Made, Testing Done, Screenshots Needed"
 ```
 
-### CI/CD Integration (Optional)
+### CI/CD Integration
 
-> ⚠️ **This section is for teams with existing CI/CD pipelines.** Skip this if you're new to GitHub Actions or CI/CD concepts. The pre-commit hook above is a simpler starting point.
+For teams with existing CI/CD pipelines, you can automate Copilot reviews on every pull request using GitHub Actions. This includes posting review comments automatically and filtering for critical issues.
 
-> 💡 **Tip**: Use `--silent` flag in CI/CD to suppress stats and progress output for cleaner logs.
-
-```yaml
-# .github/workflows/copilot-review.yml
-name: Copilot Review
-
-on:
-  pull_request:
-    types: [opened, synchronize]
-
-jobs:
-  review:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Install Copilot CLI
-        run: npm install -g @github/copilot
-
-      - name: Review Changed Files
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          FILES=$(git diff --name-only origin/main...HEAD | grep -E '\.(js|ts)$')
-          for file in $FILES; do
-            copilot -p "Security review of @$file" --silent >> review.md
-          done
-
-      - name: Post Review Comment
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const fs = require('fs');
-            const review = fs.readFileSync('review.md', 'utf8');
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: '## Copilot Review\n\n' + review
-            });
-```
-
-### Team Configuration
-
-For consistent team usage, create shared configurations:
-
-```json
-// .copilot/config.json (shared in repo)
-{
-  "model": "claude-sonnet-4.5",
-  "agents": "./.github/agents/",
-  "permissions": {
-    "allowedPaths": ["src/**/*", "tests/**/*"],
-    "deniedPaths": [".env*", "secrets/**/*"]
-  }
-}
-```
+> 📖 **Learn more**: See [CI/CD Integration](../appendices/ci-cd-integration.md) for complete GitHub Actions workflows, configuration options, and troubleshooting tips.
 
 ---
 
