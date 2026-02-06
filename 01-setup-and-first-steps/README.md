@@ -48,6 +48,8 @@ Now let's see why developers are calling this "having a senior engineer on speed
 
 > 📖 **Reading the Examples**: Lines starting with `>` are prompts you type inside an interactive Copilot session. Lines without a `>` prefix are shell commands you run in your terminal.
 
+> 💡 **About Example Outputs**: The sample outputs shown throughout this course are illustrative. Because Copilot's responses vary each time, your results will differ in wording, formatting, and detail. Focus on the *type* of information returned, not the exact text.
+
 ### Demo 1: Security Scan in Seconds
 
 The course includes sample files with intentional bugs. Let's scan one:
@@ -76,7 +78,7 @@ Once inside the interactive session:
 
 </details>
 
-**What happens**:
+**What happens** (your output will look different - Copilot's responses vary each time):
 
 ```
 Security Review: userService.js

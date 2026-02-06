@@ -166,7 +166,7 @@ Access files with additional capabilities beyond basic `@` syntax.
   "mcpServers": {
     "filesystem": {
       "type": "local",
-      "command": "npx",  // Runs npm packages without global install
+      "command": "npx",
       "args": ["-y", "@modelcontextprotocol/server-filesystem", "/path/to/project"],
       "tools": ["*"]
     }
@@ -531,8 +531,9 @@ copilot
 
 GitHub Copilot CLI includes a built-in `web_fetch` tool that can retrieve content from URLs. You can control which URLs are accessible via your configuration:
 
+In `~/.copilot/config.json`:
+
 ```json
-// ~/.copilot/config.json
 {
   "permissions": {
     "allowedUrls": [
@@ -541,7 +542,7 @@ GitHub Copilot CLI includes a built-in `web_fetch` tool that can retrieve conten
       "https://*.npmjs.org/**"
     ],
     "blockedUrls": [
-      "http://**"  // Block non-HTTPS URLs
+      "http://**"
     ]
   }
 }

@@ -610,51 +610,20 @@ copilot
 
 ### Example 1: Full Project Review
 
-Create a small project structure:
+The course includes sample files you can review directly. Start copilot and run the prompt show next:
 
 ```bash
-mkdir -p sample-project/src sample-project/tests
-```
-
-```javascript
-// sample-project/src/index.js
-const express = require('express');
-const app = express();
-
-app.get('/users', (req, res) => {
-  const users = db.query('SELECT * FROM users WHERE active = ' + req.query.active);
-  res.json(users);
-});
-
-app.listen(3000);
-```
-
-```javascript
-// sample-project/src/utils.js
-function formatDate(date) {
-  return date.toISOString();
-}
-
-function validateEmail(email) {
-  return email.includes('@');
-}
-
-module.exports = { formatDate, validateEmail };
-```
-
-Now review it:
-
-```bash
-cd sample-project
 copilot
 
 > @samples/src/ Give me a security and code quality review of this project
 
-# Copilot will identify:
-# - SQL injection in index.js
-# - Weak email validation in utils.js
+# Copilot will identify issues like:
+# - SQL injection vulnerability
+# - Weak email validation
 # - Missing error handling
 ```
+
+> 💡 **Want to try with your own files?** Create a small project (`mkdir -p my-project/src`), add some code files, then use `@my-project/src/` to review them. You can ask copilot to create sample code for you if you'd like!
 
 ### Example 2: Session Workflow
 

@@ -172,54 +172,17 @@ Here's the mental model for combining everything:
 
 ## Workflow 1: Complete Feature Development (With Agents)
 
-Let's build a "user favorites" feature from start to finish. This example uses React + Node.js/Express, but adapt the prompts to your tech stack.
+The ["Idea to Merged PR"](#idea-to-merged-pr-in-one-session) example at the top of this chapter demonstrates the full pattern. Here's a breakdown of the phases it follows - apply this to any feature:
 
-```bash
-copilot
+| Phase | What You Do | Tools Used |
+|-------|-------------|------------|
+| 1. **Understand** | Describe requirements, check existing code | Interactive mode, `@` syntax |
+| 2. **Design** | Switch to specialized agents for frontend/backend design | `/agent` |
+| 3. **Implement** | Build the feature with agent guidance | Interactive mode |
+| 4. **Test** | Generate comprehensive tests | Skills (auto-triggered) |
+| 5. **Ship** | Create PR with descriptive summary | MCP (GitHub) |
 
-# PHASE 1: Understand requirements
-> I'm working on a React + Node.js app. I need to add a "favorites" feature. Users should be able to:
-> - Add items to favorites
-> - View their favorites list
-> - Remove items from favorites
-
-# PHASE 2: Check existing code structure
-> List the files in src/components/ and src/api/
-
-# PHASE 3: Get database context
-> Show me src/models/User.js
-
-# PHASE 4: Switch to specialized agent for design
-> /agent
-# Select "frontend" from the list
-
-> Design React components for favorites:
-> - FavoriteButton (toggle)
-> - FavoritesList (display)
-> - FavoritesPage (route)
-
-> /agent
-# Select "backend"
-
-> Design API endpoints:
-> - POST /api/favorites (add)
-> - GET /api/favorites (list)
-> - DELETE /api/favorites/:id (remove)
-
-> Design the database schema for favorites
-
-# PHASE 5: Implement
-> Implement the FavoriteButton component
-
-> Implement the POST /api/favorites endpoint
-
-# PHASE 6: Test
-> Generate comprehensive tests for the favorites feature
-# Your test generation skill activates automatically
-
-# PHASE 7: Complete
-> Create a pull request with title "Feature: Add user favorites"
-```
+Adapt the prompts to your tech stack - the phased approach works whether you're building in React, Angular, Python, or anything else.
 
 ---
 
