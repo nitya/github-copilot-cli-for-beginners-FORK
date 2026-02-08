@@ -119,6 +119,8 @@ copilot -p "Say hello and tell me what you can help with"
 
 ![Hello Demo](images/hello-demo.gif)
 
+*Demo output varies — your model, tools, and responses will differ from what's shown here.*
+
 </details>
 
 **Expected output**: A friendly response listing Copilot's capabilities.

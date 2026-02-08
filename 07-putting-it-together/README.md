@@ -73,6 +73,8 @@ copilot
 
 ![Full Review Demo](images/full-review-demo.gif)
 
+*Demo output varies — your model, tools, and responses will differ from what's shown here.*
+
 </details>
 
 **Traditional approach**: 1-2 days of context-switching between tools
@@ -120,6 +122,8 @@ That's what this chapter teaches: conducting your tools into a unified workflow.
 <summary>🎬 See the minimal workflow in action!</summary>
 
 ![Minimal Workflow Demo](images/minimal-workflow-demo.gif)
+
+*Demo output varies — your model, tools, and responses will differ from what's shown here.*
 
 </details>
 

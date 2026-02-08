@@ -242,6 +242,8 @@ Code Review: books.py
 
 ![Skill Trigger Demo](images/skill-trigger-demo.gif)
 
+*Demo output varies — your model, tools, and responses will differ from what's shown here.*
+
 </details>
 
 ---
@@ -354,6 +356,8 @@ Location: ~/.copilot/skills/security-audit/
 <summary>See it in action!</summary>
 
 ![List Skills Demo](images/list-skills-demo.gif)
+
+*Demo output varies — your model, tools, and responses will differ from what's shown here.*
 
 </details>
 

@@ -76,6 +76,8 @@ Once inside the interactive session:
 
 ![Code Review Demo](images/code-review-demo.gif)
 
+*Demo output varies — your model, tools, and responses will differ from what's shown here.*
+
 </details>
 
 **What happens** (your output will look different - Copilot's responses vary each time):
@@ -122,6 +124,8 @@ Ever stared at code wondering what it does? Try this in your Copilot session:
 <summary>🎬 See it in action!</summary>
 
 ![Explain Code Demo](images/explain-code-demo.gif)
+
+*Demo output varies — your model, tools, and responses will differ from what's shown here.*
 
 </details>
 
@@ -172,6 +176,8 @@ Need a function you'd otherwise spend 15 minutes googling? Still in your session
 <summary>🎬 See it in action!</summary>
 
 ![Generate Code Demo](images/generate-code-demo.gif)
+
+*Demo output varies — your model, tools, and responses will differ from what's shown here.*
 
 </details>
 

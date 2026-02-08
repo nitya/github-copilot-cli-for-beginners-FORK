@@ -88,6 +88,8 @@ copilot
 
 ![File Context Demo](images/file-context-demo.gif)
 
+*Demo output varies — your model, tools, and responses will differ from what's shown here.*
+
 </details>
 
 ### Reference Multiple Files
@@ -132,6 +134,8 @@ copilot
 <summary>🎬 See it in action!</summary>
 
 ![Multi-File Demo](images/multi-file-demo.gif)
+
+*Demo output varies — your model, tools, and responses will differ from what's shown here.*
 
 </details>
 
@@ -237,6 +241,8 @@ copilot
 <summary>🎬 See a multi-turn conversation in action!</summary>
 
 ![Multi-Turn Demo](images/multi-turn-demo.gif)
+
+*Demo output varies — your model, tools, and responses will differ from what's shown here.*
 
 </details>
 

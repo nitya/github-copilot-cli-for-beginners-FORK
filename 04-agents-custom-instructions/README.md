@@ -469,6 +469,8 @@ copilot --agent python-reviewer
 
 ![Python Reviewer Demo](images/python-reviewer-demo.gif)
 
+*Demo output varies — your model, tools, and responses will differ from what's shown here.*
+
 </details>
 
 ### Switching Agents Mid-Session

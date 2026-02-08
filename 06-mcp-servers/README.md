@@ -114,6 +114,8 @@ Server 'postgres' enabled.
 
 ![MCP Status Demo](images/mcp-status-demo.gif)
 
+*Demo output varies — your model, tools, and responses will differ from what's shown here.*
+
 </details>
 
 ---
@@ -442,6 +444,8 @@ PR URL: https://github.com/org/repo/pull/7
 <summary>🎬 See the MCP workflow in action!</summary>
 
 ![MCP Workflow Demo](images/mcp-workflow-demo.gif)
+
+*Demo output varies — your model, tools, and responses will differ from what's shown here.*
 
 </details>
 

@@ -169,6 +169,8 @@ copilot
 
 ![Refactor Demo](images/refactor-demo.gif)
 
+*Demo output varies — your model, tools, and responses will differ from what's shown here.*
+
 </details>
 
 ### Improve Error Handling
@@ -246,6 +248,8 @@ copilot
 <summary>🎬 See it in action!</summary>
 
 ![Fix Bug Demo](images/fix-bug-demo.gif)
+
+*Demo output varies — your model, tools, and responses will differ from what's shown here.*
 
 </details>
 
