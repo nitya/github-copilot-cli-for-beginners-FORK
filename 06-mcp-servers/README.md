@@ -109,6 +109,8 @@ MCP Servers:
 Server 'postgres' enabled.
 ```
 
+---
+
 <details>
 <summary>🎬 See it in action!</summary>
 

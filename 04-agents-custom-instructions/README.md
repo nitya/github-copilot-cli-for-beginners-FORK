@@ -464,6 +464,8 @@ copilot --agent python-reviewer
 # The python-reviewer agent applies all its specialized standards
 ```
 
+---
+
 <details>
 <summary>🎬 See it in action!</summary>
 
@@ -472,6 +474,8 @@ copilot --agent python-reviewer
 *Demo output varies — your model, tools, and responses will differ from what's shown here.*
 
 </details>
+
+---
 
 ### Switching Agents Mid-Session
 

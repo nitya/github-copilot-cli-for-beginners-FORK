@@ -83,6 +83,8 @@ copilot
 > Explain what @samples/book-app-project/utils.py does
 ```
 
+---
+
 <details>
 <summary>🎬 See it in action!</summary>
 
@@ -91,6 +93,8 @@ copilot
 *Demo output varies — your model, tools, and responses will differ from what's shown here.*
 
 </details>
+
+---
 
 ### Reference Multiple Files
 
@@ -130,6 +134,8 @@ copilot
 > > Find security vulnerabilities that span BOTH files
 > ```
 
+---
+
 <details>
 <summary>🎬 See it in action!</summary>
 
@@ -138,6 +144,8 @@ copilot
 *Demo output varies — your model, tools, and responses will differ from what's shown here.*
 
 </details>
+
+---
 
 **What Copilot discovers**:
 

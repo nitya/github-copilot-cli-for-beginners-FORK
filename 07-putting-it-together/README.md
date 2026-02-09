@@ -68,6 +68,8 @@ copilot
 > Create a pull request titled "Feature: Add list unread books command"
 ```
 
+---
+
 <details>
 <summary>🎬 See it in action!</summary>
 
@@ -76,6 +78,8 @@ copilot
 *Demo output varies — your model, tools, and responses will differ from what's shown here.*
 
 </details>
+
+---
 
 **Traditional approach**: 1-2 days of context-switching between tools
 

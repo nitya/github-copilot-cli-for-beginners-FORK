@@ -164,6 +164,8 @@ copilot
 > The utils.py file has print statements mixed with logic. Refactor to separate display functions from data processing.
 ```
 
+---
+
 <details>
 <summary>🎬 See it in action!</summary>
 
@@ -172,6 +174,8 @@ copilot
 *Demo output varies — your model, tools, and responses will differ from what's shown here.*
 
 </details>
+
+---
 
 ### Improve Error Handling
 
@@ -244,6 +248,8 @@ copilot
 > Debug why this happens
 ```
 
+---
+
 <details>
 <summary>🎬 See it in action!</summary>
 
@@ -252,6 +258,8 @@ copilot
 *Demo output varies — your model, tools, and responses will differ from what's shown here.*
 
 </details>
+
+---
 
 **What Copilot does**:
 ```

@@ -73,6 +73,8 @@ Once inside the interactive session:
 
 > 💡 **What's the `@`?** The `@` symbol tells Copilot to read a file. You'll learn all about this in Chapter 02. For now, just copy the command exactly as shown.
 
+---
+
 <details>
 <summary>🎬 See it in action!</summary>
 
@@ -81,6 +83,8 @@ Once inside the interactive session:
 *Demo output varies — your model, tools, and responses will differ from what's shown here.*
 
 </details>
+
+---
 
 **The takeaway**: A professional code review in seconds. Manual review would take...well...more time than that!
 
@@ -94,6 +98,8 @@ Ever stared at code wondering what it does? Try this in your Copilot session:
 > Explain what @samples/book-app-project/books.py does in simple terms
 ```
 
+---
+
 <details>
 <summary>🎬 See it in action!</summary>
 
@@ -102,6 +108,8 @@ Ever stared at code wondering what it does? Try this in your Copilot session:
 *Demo output varies — your model, tools, and responses will differ from what's shown here.*
 
 </details>
+
+---
 
 **What happens**: (your output will differ) Copilot reads the file, understands the code, and explains it in plain English.
 
@@ -146,6 +154,8 @@ Need a function you'd otherwise spend 15 minutes googling? Still in your session
   total count, number read, number unread, oldest and newest book
 ```
 
+---
+
 <details>
 <summary>🎬 See it in action!</summary>
 
@@ -154,6 +164,8 @@ Need a function you'd otherwise spend 15 minutes googling? Still in your session
 *Demo output varies — your model, tools, and responses will differ from what's shown here.*
 
 </details>
+
+---
 
 **What happens**: A complete, working function in seconds that you can copy-paste-run.
 

@@ -237,6 +237,8 @@ Code Review: books.py
 
 **The difference**: Your team's standards are applied automatically, every time, without typing them out.
 
+---
+
 <details>
 <summary>🎬 See skill auto-triggering in action!</summary>
 
@@ -352,6 +354,8 @@ Description: Security-focused code review checking OWASP Top 10 vulnerabilities
 Location: ~/.copilot/skills/security-audit/
 ```
 
+---
+
 <details>
 <summary>See it in action!</summary>
 
@@ -360,6 +364,8 @@ Location: ~/.copilot/skills/security-audit/
 *Demo output varies — your model, tools, and responses will differ from what's shown here.*
 
 </details>
+
+---
 
 ### When to Use /skills reload
 

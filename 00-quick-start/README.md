@@ -110,6 +110,8 @@ copilot
 > /exit
 ```
 
+---
+
 <details>
 <summary>🎬 See it in action!</summary>
 
@@ -118,6 +120,8 @@ copilot
 *Demo output varies — your model, tools, and responses will differ from what's shown here.*
 
 </details>
+
+---
 
 **Expected output**: A friendly response listing Copilot's capabilities.
 
