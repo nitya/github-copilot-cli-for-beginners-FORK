@@ -2,7 +2,7 @@
 
 > **What if the AI could find bugs you didn't even know to ask about?**
 
-In this chapter, GitHub Copilot CLI becomes your daily driver. You'll learn the workflows you'll use constantly: running comprehensive code reviews, refactoring legacy code safely, debugging issues with AI assistance, generating tests automatically, and integrating Copilot with your git workflow. The "Bug Detective" demo shows AI finding related bugs you didn't even ask about. That's when it gets truly impressive.
+In this chapter, GitHub Copilot CLI becomes your daily driver. You'll learn how to leverage Copilot CLI in the workflows you'll use constantly already, such as testing, refactoring, debugging, and git.
 
 ## Learning Objectives
 
@@ -30,13 +30,10 @@ A master carpenter doesn't just know how to use tools - they have *workflows* fo
 
 Similarly, developers have workflows for different tasks. GitHub Copilot CLI enhances each one.
 
-> 💡 **Important**: The workflows below are **independent tools**, not a mandatory sequence. Use whichever workflow fits your current task. You might do code review without debugging, or jump straight to test generation. There's no "correct" order.
->
-> **Test-first developers**: If you practice TDD (Test-Driven Development), you'd typically start with Workflow 4 (Test Generation), then implement code, then use Workflow 1 (Code Review).
 
-<img src="images/craftsman-workshop-analogy.png" alt="Specialized Workflows for Every Task" width="800"/>
+### Programming Workflows
 
-*The right tool for every development task: Code Review, Refactoring, Debugging, Testing, and Git Integration*
+Here are five commonly used workflows in programming that you can use in the order you need. We'll see how Copilot CLI can help us upgrade them.
 
 <img src="images/five-workflows-swimlane.png" alt="Five Development Workflows: Code Review, Refactoring, Debugging, Test Generation, and Git Integration shown as horizontal swimlanes" width="800"/>
 
@@ -45,6 +42,10 @@ Similarly, developers have workflows for different tasks. GitHub Copilot CLI enh
 ---
 
 ## Workflow 1: Code Review
+
+
+
+<img src="images/code-review-swimlane-single.png" alt="Code review workflow: review, identify issues, prioritize, generate checklist." width="800"/>
 
 ### Basic Review
 
@@ -56,11 +57,13 @@ copilot
 
 ### Input Validation Review
 
-```bash
+
+```text
 copilot
 
 > Review @samples/book-app-project/utils.py for input validation issues. Check for: missing validation, error handling gaps, and edge cases
 ```
+
 
 ### Cross-File Project Review
 
@@ -140,6 +143,7 @@ copilot
 ---
 
 ## Workflow 2: Refactoring
+<img src="images/refactoring-swimlane-single.png" alt="Refactoring workflow: assess code, plan changes, implement, verifiy behavrior." width="800"/>
 
 ### Simple Refactoring
 
@@ -215,6 +219,7 @@ copilot
 ---
 
 ## Workflow 3: Debugging
+<img src="images/debugging-swimlane-single.png" alt="Debugging workflow: understand error, locate root cause, fix, test." width="800"/>
 
 ### Simple Debugging
 
@@ -341,6 +346,7 @@ copilot
 ---
 
 ## Workflow 4: Test Generation
+<img src="images/test-gen-swimlane-single.png" alt="Test Generationg workflow: analyze function, generate tests, include edge cases, run." width="800"/>
 
 ### The "Test Explosion" - 2 Tests vs 15+ Tests
 
@@ -465,6 +471,8 @@ copilot
 ---
 
 ## Workflow 5: Git Integration
+
+<img src="images/git-integration-swimlane-single.png" alt="Git Integreation workflow: stage changes, generate message, commit, create PR." width="800"/>
 
 ### Generate Commit Messages
 
