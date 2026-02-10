@@ -42,6 +42,8 @@ This chapter covers five workflows that developers typically use. **However, you
 | Write better commits and PRs | [Workflow 5: Git Integration](#workflow-5-git-integration) |
 | See a full bug-fix workflow end to end | [Putting It All Together](#putting-it-all-together-bug-fix-workflow) |
 
+**Click to expand any of the following workflows** and see how GitHub Copilot CLI can enhance your development process in that area. 
+
 ---
 
 <a id="workflow-1-code-review"></a>
@@ -59,6 +61,19 @@ copilot
 
 > Review @samples/book-app-project/book_app.py for code quality
 ```
+
+---
+
+<details>
+<summary>🎬 See it in action!</summary>
+
+![Code Review Demo](images/code-review-demo.gif)
+
+*Demo output varies. Your model, tools, and responses will differ from what's shown here.*
+
+</details>
+
+---
 
 ### Input Validation Review
 
@@ -170,22 +185,13 @@ Start with straightforward improvements. Try these on the book app. Each prompt 
 copilot
 
 > @samples/book-app-project/book_app.py The command handling uses if/elif chains. Refactor it to use a dictionary dispatch pattern.
+
 > @samples/book-app-project/utils.py Add type hints to all functions
+
 > @samples/book-app-project/book_app.py Extract the book display logic into utils.py for better separation of concerns
 ```
 
 > 💡 **New to refactoring?** Start with simple requests like adding type hints or improving variable names before tackling complex transformations.
-
-### Separate Concerns
-
-Reference multiple files with `@` in a single prompt so Copilot can move code between them as part of the refactor.
-
-```bash
-copilot
-
-> @samples/book-app-project/utils.py @samples/book-app-project/book_app.py
-> The utils.py file has print statements mixed with logic. Refactor to separate display functions from data processing.
-```
 
 ---
 
@@ -199,6 +205,17 @@ copilot
 </details>
 
 ---
+
+### Separate Concerns
+
+Reference multiple files with `@` in a single prompt so Copilot can move code between them as part of the refactor.
+
+```bash
+copilot
+
+> @samples/book-app-project/utils.py @samples/book-app-project/book_app.py
+> The utils.py file has print statements mixed with logic. Refactor to separate display functions from data processing.
+```
 
 ### Improve Error Handling
 
@@ -270,19 +287,6 @@ copilot
 
 > 💡 **Debugging tip**: Describe the *symptom* (what you see) and the *expectation* (what should happen). Copilot figures out the rest.
 
-### The "Bug Detective" - AI Finds RELATED Bugs
-
-This is where context-aware debugging shines. Try this scenario with the buggy book app. Provide the whole file via `@` and describe only the user-reported symptom. Copilot will trace the root cause and may spot additional bugs nearby.
-
-```bash
-copilot
-
-> @samples/book-app-buggy/books_buggy.py
->
-> Users report: "Finding books by author name doesn't work for partial names"
-> Debug why this happens
-```
-
 ---
 
 <details>
@@ -295,6 +299,19 @@ copilot
 </details>
 
 ---
+
+### The "Bug Detective" - AI Finds RELATED Bugs
+
+This is where context-aware debugging shines. Try this scenario with the buggy book app. Provide the whole file via `@` and describe only the user-reported symptom. Copilot will trace the root cause and may spot additional bugs nearby.
+
+```bash
+copilot
+
+> @samples/book-app-buggy/books_buggy.py
+>
+> Users report: "Finding books by author name doesn't work for partial names"
+> Debug why this happens
+```
 
 **What Copilot does**:
 ```
@@ -411,6 +428,19 @@ copilot
 > - Marking as read
 > - Edge cases with empty data
 ```
+
+---
+
+<details>
+<summary>🎬 See it in action!</summary>
+
+![Test Generation Demo](images/test-gen-demo.gif)
+
+*Demo output varies. Your model, tools, and responses will differ from what's shown here.*
+
+</details>
+
+---
 
 **What you get**: 15+ comprehensive tests including:
 
@@ -548,6 +578,19 @@ copilot -p "Generate a conventional commit message for: $(git diff --staged)"
 # - Add case-insensitive comparison
 # - Improve user experience when searching authors"
 ```
+
+---
+
+<details>
+<summary>🎬 See it in action!</summary>
+
+![Git Integration Demo](images/git-integration-demo.gif)
+
+*Demo output varies. Your model, tools, and responses will differ from what's shown here.*
+
+</details>
+
+---
 
 ### Explain Changes
 
@@ -799,7 +842,7 @@ copilot
 4. **Test generation** should include edge cases and error scenarios
 5. **Git integration** automates commit messages and PR descriptions
 
-> 📋 **Quick Reference**: See the [Command Cheat Sheet](../QUICK-REFERENCE.md) for a complete list of commands and shortcuts.
+> 📋 **Quick Reference**: See the [GitHub Copilot CLI command reference](https://docs.github.com/en/copilot/reference/cli-command-reference) for a complete list of commands and shortcuts.
 
 ---
 

@@ -1,7 +1,7 @@
-# 05-skills: Copilot detects this matches your "code-review" skill demo
+# 03-development-workflows: Workflow 5: Git Integration - generate a conventional commit message
 # Auto-generated from demos.json - Real copilot execution
 
-Output skills-demo.gif
+Output git-integration-demo.gif
 
 Set FontSize 18
 Set Width 1000
@@ -23,12 +23,12 @@ Enter
 Sleep 5s
 
 # Execute the prompt
-Type "Review @file.py for security issues"
+Type "Generate a conventional commit message for: $(git diff --staged)"
 Sleep 2s
 Enter
 
 # Wait for response
-Sleep 25s
+Sleep 30s
 
 # Exit cleanly
 Ctrl+C
