@@ -1,4 +1,4 @@
-# 05-skills: Skill Auto-Trigger
+# 05-skills: Copilot detects and triggers a matching skill
 # Auto-generated from demos.json - Real copilot execution
 
 Output skill-trigger-demo.gif
@@ -23,12 +23,12 @@ Enter
 Sleep 5s
 
 # Execute the prompt
-Type "Review @samples/book-app-project/books.py for code quality issues"
+Type "Review the book collection code for issues"
 Sleep 2s
 Enter
 
 # Wait for response
-Sleep 25s
+Sleep 45s
 
 # Exit cleanly
 Ctrl+C
