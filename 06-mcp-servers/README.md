@@ -2,60 +2,62 @@
 
 > **What if Copilot could read your GitHub issues, check your database, and create PRs... all from the terminal?**
 
-In this chapter, you'll connect Copilot to the outside world using MCP (Model Context Protocol). You'll configure servers for GitHub, filesystem access, and documentation, then experience the magic of going from "Get issue #42" to "Create a PR with the fix" - all without leaving your terminal. You'll also learn to build your own MCP servers to connect any API you need.
+So far, Copilot can only work with what you give it directly: files you reference with `@`, conversation history, and its own training data. But what if it could reach out on its own to check your GitHub repository, browse your project files, or look up the latest documentation for a library?
 
-## Learning Objectives
+That's what MCP (Model Context Protocol) does. It's a way to connect Copilot to external services so it has access to live, real-world data. Each service Copilot connects to is called an "MCP server." In this chapter, you'll set up a few of these connections and see how they make Copilot dramatically more useful.
+
+> 💡 **Already familiar with MCP?** [Jump to the quick start](#-start-here-mcp-in-30-seconds) to confirm it's working and start configuring servers.
+
+## 🎯 Learning Objectives
 
 By the end of this chapter, you'll be able to:
 
 - Understand what MCP is and why it matters
 - Manage MCP servers using `/mcp` commands
 - Configure MCP servers for GitHub, filesystem, and documentation
-- Use MCP in your daily workflows
-- Build a basic custom MCP server
+- Use MCP-powered workflows with the book app project
+- Know when and how to build a custom MCP server (optional)
 
-> ⏱️ **Estimated Time**: ~45 minutes (20 min reading + 25 min hands-on)
-
----
-
-## 🚀 Start Here: MCP in 30 Seconds
-
-**What is MCP?** It connects Copilot to external services (GitHub, databases, APIs) so it can read real data instead of just analyzing files.
-
-**Quickest way to see it work:** The GitHub MCP is included by default. Try this:
-
-```bash
-copilot
-> List my recent pull requests
-```
-
-If it works, MCP is already set up! If not, this chapter shows you how.
-
-**Time estimate:** Basic setup takes ~10-15 minutes. Most time is spent getting a GitHub token.
+> ⏱️ **Estimated Time**: ~45 minutes (20 min reading + 25 min hands-on). GitHub MCP works out of the box; configuring additional servers takes ~10-15 minutes.
 
 ---
 
-## Real-World Analogy: Browser Extensions
+## 🧩 Real-World Analogy: Browser Extensions
 
-Think of MCP servers like browser extensions:
+Think of MCP servers like browser extensions. Your browser on its own can display web pages, but extensions connect it to extra services:
 
-| Extension | What It Does |
-|-----------|--------------|
-| Password manager | Connects browser to your vault |
-| GitHub | Adds GitHub features to any page |
-| Grammarly | Connects to writing analysis service |
+| Browser Extension | What It Connects To | MCP Equivalent |
+|-------------------|---------------------|----------------|
+| Password manager | Your password vault | **GitHub MCP** → your repos, issues, PRs |
+| Grammarly | Writing analysis service | **Context7 MCP** → library documentation |
+| File manager | Cloud storage | **Filesystem MCP** → local project files |
 
-MCP servers do the same thing for Copilot. They connect it to external services so it can read GitHub issues, query databases, fetch documentation, and more.
+Without extensions, your browser is still useful, but with them, it becomes a powerhouse. MCP servers do the same for Copilot. They connect it to real, live data sources so it can read your GitHub issues, explore your file system, fetch up-to-date documentation, and more.
+
+> 💡 **Key insight**: Without MCP, Copilot can only see files you explicitly share with `@`. With MCP, it can proactively explore your project, check your GitHub repo, and look up documentation, all automatically.
 
 <img src="images/browser-extensions-analogy.png" alt="MCP Servers are like Browser Extensions" width="800"/>
 
-*MCP servers connect Copilot to the outside world: GitHub, databases, documentation, and more*
+*MCP servers connect Copilot to the outside world: GitHub, repositories, documentation, and more*
 
 ---
 
-## What is MCP?
+## 🚀 Quick start: MCP in 30 Seconds
 
-MCP (Model Context Protocol) is a standard for connecting AI assistants to external data sources.
+**Quickest way to confirm MCP is working:** The GitHub MCP server is included by default. Try this:
+
+```bash
+copilot
+> List the recent commits in this repository
+```
+
+If Copilot returns real commit data, you've just seen MCP in action. That's the GitHub MCP server doing its thing. But GitHub is just *one* server. This chapter shows you how to add more (filesystem access, up-to-date documentation, and others) so Copilot can do even more.
+
+---
+
+## 🧠 What Changes with MCP?
+
+Here's the difference MCP makes in practice:
 
 **Without MCP:**
 ```bash
@@ -80,7 +82,7 @@ MCP makes Copilot aware of your actual development environment.
 
 ---
 
-## Managing MCP Servers
+## 🛠️ Managing MCP Servers
 
 Use the `/mcp` command to manage MCP servers:
 
@@ -116,19 +118,15 @@ Server 'postgres' enabled.
 
 ![MCP Status Demo](images/mcp-status-demo.gif)
 
-*Demo output varies — your model, tools, and responses will differ from what's shown here.*
+*Demo output varies. Your model, tools, and responses will differ from what's shown here.*
 
 </details>
 
 ---
 
-## MCP Configuration File
+## 📁 MCP Configuration File
 
-MCP servers are configured in `~/.copilot/mcp-config.json` (global) or `.copilot/mcp-config.json` (project).
-
-### Understanding the JSON Format
-
-> 💡 **New to JSON?** JSON is just a way to write configuration data. Here's what each part means:
+MCP servers are configured in `~/.copilot/mcp-config.json` (global) or `.copilot/mcp-config.json` (project). 
 
 ```json
 {
@@ -142,6 +140,11 @@ MCP servers are configured in `~/.copilot/mcp-config.json` (global) or `.copilot
   }
 }
 ```
+
+*Most MCP servers are distributed as npm packages and run via the `npx` command.*
+
+<details>
+<summary>💡 <strong>New to JSON?</strong> Click here to learn what each field means</summary>
 
 | Field | What It Means |
 |-------|---------------|
@@ -157,11 +160,31 @@ MCP servers are configured in `~/.copilot/mcp-config.json` (global) or `.copilot
 - No trailing commas after the last item
 - File must be valid JSON (use a [JSON validator](https://jsonlint.com/) if unsure)
 
+</details>
+
 ---
 
-## MCP Server 1: Filesystem
+## Setting Up MCP Servers
 
-Access files with additional capabilities beyond basic `@` syntax.
+Below are the three most useful MCP servers for this course. Each topic is self-contained. **Pick what interests you, or work through them in order.**
+
+| I want to... | Jump to |
+|---|---|
+| Let Copilot browse my project files | [Filesystem Server](#filesystem-server) |
+| Connect to GitHub repos, issues, and PRs | [GitHub Server](#github-server-built-in) |
+| Get up-to-date library documentation | [Context7 Server](#context7-server-documentation) |
+| See the full config with all servers | [Complete Configuration](#complete-configuration-file) |
+| Skip setup and see real workflows | [Putting MCP to Work](#-putting-mcp-to-work-real-workflows) |
+
+---
+
+<details>
+<summary><strong>Filesystem Server</strong> - Let Copilot explore your project files</summary>
+<a id="filesystem-server"></a>
+
+## Filesystem Server
+
+Access files with additional capabilities beyond basic `@` syntax. While `@` lets you reference specific files, the filesystem MCP gives Copilot the ability to explore directories, search across files, and discover things on its own.
 
 ### Configuration
 
@@ -171,12 +194,14 @@ Access files with additional capabilities beyond basic `@` syntax.
     "filesystem": {
       "type": "local",
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-filesystem", "/path/to/project"],
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "."],
       "tools": ["*"]
     }
   }
 }
 ```
+
+> 💡 **The `.` path**: The `.` means "current directory". Copilot can access files relative to where you launched it. In a Codespace, this is your workspace root. You can also use an absolute path like `/workspaces/github-copilot-cli-for-beginners` if you prefer.
 
 ### Usage
 
@@ -203,9 +228,15 @@ Found 2 functions without type hints:
 - samples/book-app-project/utils.py:14 - get_book_details()
 ```
 
+</details>
+
 ---
 
-## MCP Server 2: GitHub
+<details>
+<summary><strong>GitHub Server (Built-in)</strong> - Access repos, issues, PRs, and more</summary>
+<a id="github-server-built-in"></a>
+
+## GitHub Server (Built-in)
 
 The GitHub MCP server is **built-in** - if you logged into Copilot (which you did during initial setup), it already works. No configuration needed!
 
@@ -233,52 +264,57 @@ copilot
 
 ### What You Can Do
 
-| Feature | Examples |
+| Feature | Example |
 |---------|----------|
+| **Repository info** | View commits, branches, contributors |
 | **Issues** | List, create, search, and comment on issues |
 | **Pull requests** | View PRs, diffs, create PRs, check status |
-| **Code search** | Search across repositories |
+| **Code search** | Search code across repositories |
 | **Actions** | Query workflow runs and status |
-| **Copilot Spaces** | Access collaborative workspaces |
 
 ### Usage
+
+Since you're working in this course repository (either via Codespaces or a local clone), try these read operations first:
 
 ```bash
 copilot
 
-# Create an issue for book app improvement
-> Create a GitHub issue titled "Add year range search to book app" with
-> description "Users should be able to search for books published in a
-> specific year range"
+# See recent activity in this repo
+> List the last 5 commits in this repository
 
-Created issue #5: Add year range search to book app
-URL: https://github.com/org/repo/issues/5
+Recent commits:
+1. abc1234 - Update chapter 05 skills examples (2 days ago)
+2. def5678 - Add book app test fixtures (3 days ago)
+3. ghi9012 - Fix typo in chapter 03 README (4 days ago)
+...
 
-# Full issue-to-PR workflow
-> What's in issue #1?
+# Explore the repo structure
+> What branches exist in this repository?
 
-Issue #1: Search by author doesn't work for partial names
-Status: Open
-Labels: bug, enhancement
-Description: Users should be able to search for "King" and find
-"Stephen King". Currently requires exact match.
+Branches:
+- main (default)
+- chapter6 (current)
 
-> @samples/book-app-project/books.py Implement the feature described in issue #1
+# Search for code patterns across the repo
+> Search this repository for files that import pytest
 
-[Shows implementation with fuzzy search logic]
-
-> Create a pull request for these changes
-
-Created PR #6: Add fuzzy author search to book collection
-Base: main
-Head: feature/fuzzy-author-search
-References: #1
-Status: Ready for review
+Found 1 file:
+- samples/book-app-project/tests/test_books.py
 ```
+
+> 💡 **Working on your own fork?** If you forked this course repo, you can also try write operations like creating issues and pull requests. We'll practice that in the exercises below.
+
+> ⚠️ **Don't see results?** The GitHub MCP operates on the repository's remote (on github.com), not just local files. Make sure your repo has a remote: run `git remote -v` to check.
+
+</details>
 
 ---
 
-## MCP Server 3: Context7 (Documentation)
+<details>
+<summary><strong>Context7 Server (Documentation)</strong> - Get up-to-date library docs</summary>
+<a id="context7-server-documentation"></a>
+
+## Context7 Server (Documentation)
 
 Context7 gives Copilot access to up-to-date documentation for popular frameworks and libraries. Instead of relying on training data that might be outdated, Copilot fetches the actual current documentation.
 
@@ -318,37 +354,39 @@ Context7 gives Copilot access to up-to-date documentation for popular frameworks
 ```bash
 copilot
 
-> What's the best practice for database connection management in Python?
+> What are the best practices for using pytest fixtures?
 
-From SQLAlchemy Documentation:
+From pytest Documentation:
 
-## Connection Management
+Fixtures - Use fixtures to provide a fixed baseline for tests:
 
-Use context managers to ensure connections are properly closed:
+    import pytest
 
-```python
-from sqlalchemy import create_engine
+    @pytest.fixture
+    def sample_books():
+        return [
+            {"title": "1984", "author": "George Orwell", "year": 1949},
+            {"title": "Dune", "author": "Frank Herbert", "year": 1965},
+        ]
 
-engine = create_engine("sqlite:///books.db")
-
-with engine.connect() as conn:
-    result = conn.execute(text("SELECT * FROM books"))
-    for row in result:
-        print(row)
-# Connection automatically closed when exiting the 'with' block
-```
+    def test_find_by_author(sample_books):
+        # fixture is automatically passed as argument
+        results = [b for b in sample_books if "Orwell" in b["author"]]
+        assert len(results) == 1
 
 Best practices:
-- Use context managers for automatic cleanup
-- Use connection pooling for production
-- Handle connection errors gracefully
-- Close connections in finally blocks
+- Use fixtures instead of setup/teardown methods
+- Use tmp_path fixture for temporary files
+- Use monkeypatch for modifying environment
+- Scope fixtures appropriately (function, class, module, session)
 
-> How do I apply this to the book app's data persistence?
+> How can I apply this to the book app's test file?
 
-# Copilot now knows the official SQLAlchemy patterns
-# and can apply them to your specific code
+# Copilot now knows the official pytest patterns
+# and can apply them to samples/book-app-project/tests/test_books.py
 ```
+
+</details>
 
 ---
 
@@ -381,67 +419,67 @@ Save this as `~/.copilot/mcp-config.json` for global access or `.copilot/mcp-con
 
 ---
 
-## Putting MCP to Work: Real Workflows
+## 🔧 Putting MCP to Work: Real Workflows
 
-Now that you have MCP configured, let's see what it can do. These workflows demonstrate why developers say "I never want to work without this again."
-
-### Issue to Fix to PR: Without Leaving Terminal
-
-This is the moment developers say "I never want to work without this again."
+Now that you have MCP configured, let's see what it can do with our book app project. These workflows show why developers say "I never want to work without this again."
 
 <img src="images/issue-to-pr-workflow.png" alt="Issue to PR Workflow using MCP - Shows the complete flow from getting a GitHub issue through creating a pull request" width="800"/>
 
-*Complete Issue-to-PR workflow: GitHub MCP retrieves issues and creates PRs, Filesystem MCP finds code, Context7 MCP provides best practices, and Copilot handles analysis and fixes*
+*Complete MCP workflow: GitHub MCP retrieves repo data, Filesystem MCP finds code, Context7 MCP provides best practices, and Copilot handles analysis*
 
-### The Complete Workflow (No Copy-Paste, No Context Switching)
+Each example below is self-contained. **Pick one that interests you, or read them all.**
+
+| I want to see... | Jump to |
+|---|---|
+| Multiple servers working together | [Multi-Server Exploration](#multi-server-exploration) |
+| Going from issue to PR in one session | [Issue-to-PR Workflow](#issue-to-pr-workflow) |
+| A quick project health check | [Health Dashboard](#health-dashboard) |
+
+---
+
+<details>
+<summary><strong>Multi-Server Exploration</strong> - Combine filesystem, GitHub, and Context7 in one session</summary>
+<a id="multi-server-exploration"></a>
+
+### Exploring the Book App with Multiple MCP Servers
 
 ```bash
 copilot
 
-> Get the details of GitHub issue #1
+# Step 1: Use filesystem MCP to explore the book app
+> List all Python files in samples/book-app-project/ and summarize
+> what each file does
 
-Issue #1: Search by author doesn't work for partial names
-Status: Open
-Priority: Medium
-Reporter: user123 (2 days ago)
+Found 3 Python files:
+- book_app.py: CLI entry point with command routing (list, add, remove, find)
+- books.py: BookCollection class with data persistence via JSON
+- utils.py: Helper functions for user input and display
 
-Description:
-Users should be able to search for "King" and find books by
-"Stephen King". Currently the search requires exact match of
-the full author name.
+# Step 2: Use GitHub MCP to check recent changes
+> What were the last 3 commits that touched files in samples/book-app-project/?
 
-Steps to reproduce:
-1. Run the book app
-2. Search for "King"
-3. No results returned (should find "Stephen King" books)
+Recent commits affecting book app:
+1. abc1234 - Add test fixtures for BookCollection (2 days ago)
+2. def5678 - Add find_by_author method (5 days ago)
+3. ghi9012 - Initial book app setup (1 week ago)
 
-Comments:
-- @reviewer: Good enhancement. Should use fuzzy matching.
-- @contributor: Could use difflib or fuzzywuzzy for this.
+# Step 3: Use Context7 MCP for best practices
+> What are Python best practices for JSON data persistence?
 
-> Find the code that handles author search
+From Python Documentation:
+- Use context managers (with statements) for file I/O
+- Handle JSONDecodeError for corrupted files
+- Use dataclasses for structured data
+- Consider atomic writes to prevent data corruption
 
-Found: samples/book-app-project/books.py
+# Step 4: Synthesize a recommendation
+> Based on the book app code and these best practices,
+> what improvements would you suggest?
 
-[Shows the BookCollection.search_by_author() method]
-
-> Based on the issue and the code, what's causing this limitation?
-
-Analysis:
-Line 52 uses exact string comparison (author == search_term).
-This requires users to type the full author name exactly.
-
-Fix: Implement fuzzy matching using difflib or case-insensitive
-substring matching.
-
-> Fix the bug and create a pull request that references issue #1
-
-✓ Created branch: fix/issue-1-fuzzy-author-search
-✓ Modified: samples/book-app-project/books.py (added fuzzy matching)
-✓ Modified: samples/book-app-project/test_books.py (added test cases)
-✓ Created PR #7: Add fuzzy author search to book collection
-
-PR URL: https://github.com/org/repo/pull/7
+Suggestions:
+1. Add input validation in add_book() for empty strings and invalid years
+2. Consider atomic writes in save_books() to prevent data corruption
+3. Add type hints to utils.py functions (get_user_choice, get_book_details)
 ```
 
 <details>
@@ -449,118 +487,110 @@ PR URL: https://github.com/org/repo/pull/7
 
 ![MCP Workflow Demo](images/mcp-workflow-demo.gif)
 
-*Demo output varies — your model, tools, and responses will differ from what's shown here.*
+*Demo output varies. Your model, tools, and responses will differ from what's shown here.*
 
 </details>
 
-**The result**: Issue investigation → root cause analysis → fix implementation → PR creation. **Zero copy-paste. Zero context switching. One terminal session.**
+**The result**: Code exploration → history review → best practices lookup → improvement plan. **All from one terminal session, using three MCP servers together.**
+
+</details>
 
 ---
 
-### The Repository Health Dashboard
+<details>
+<summary><strong>Issue-to-PR Workflow</strong> - Go from a GitHub issue to a pull request without leaving the terminal</summary>
+<a id="issue-to-pr-workflow"></a>
 
-Get a complete picture of your codebase health in 30 seconds:
+### The Issue-to-PR Workflow (On Your Own Repo)
+
+This works best on your own fork or repository where you have write access:
+
+> 💡 **Don't worry if you can't try this right now.** If you're on a read-only clone, you'll practice this in the assignment. For now, just read through to understand the flow.
 
 ```bash
 copilot
 
-> Give me a health report for this repository:
-> 1. Count all TODO and FIXME comments
-> 2. List open GitHub issues by priority
-> 3. Find any issues labeled "security"
-> 4. Show me which files have the most lines of code
+> Get the details of GitHub issue #1
 
-Repository Health Report
-========================
+Issue #1: Add input validation for book year
+Status: Open
+Description: The add_book function accepts any year value...
 
-📝 Technical Debt:
-- TODO comments: 3 (samples/book-app-project/books.py: 2, utils.py: 1)
-- FIXME comments: 1 (in data validation)
+> @samples/book-app-project/books.py Fix the issue described in issue #1
 
-🐛 Open Issues: 4
-- High: 1 (#1 fuzzy author search)
-- Medium: 2
-- Low: 1
+[Copilot implements year validation in add_book()]
+
+> Run the tests to make sure the fix works
+
+All 8 tests passed ✓
+
+> Create a pull request titled "Add year validation to book app"
+
+✓ Created PR #2: Add year validation to book app
+```
+
+**Zero copy-paste. Zero context switching. One terminal session.**
+
+</details>
+
+---
+
+<details>
+<summary><strong>Health Dashboard</strong> - Get a quick project health check using multiple servers</summary>
+<a id="health-dashboard"></a>
+
+### Book App Health Dashboard
+
+```bash
+copilot
+
+> Give me a health report for the book app project:
+> 1. List all functions across the Python files in samples/book-app-project/
+> 2. Check which functions have type hints and which don't
+> 3. Show what tests exist in samples/book-app-project/tests/
+> 4. Check the recent commit history for this directory
+
+Book App Health Report
+======================
+
+📊 Functions Found:
+- books.py: 8 methods in BookCollection (all have type hints ✓)
+- book_app.py: 6 functions (4 have type hints, 2 missing)
+- utils.py: 3 functions (1 has type hints, 2 missing)
 
 🧪 Test Coverage:
-- Test files: 0
-- Functions tested: 0/12 (0%)
-- Missing tests: all public functions need coverage
+- test_books.py: 8 test functions covering BookCollection
+- Missing: no tests for book_app.py CLI functions
+- Missing: no tests for utils.py helper functions
 
-📊 Largest Files:
-1. samples/book-app-project/book_app.py (99 lines)
-2. samples/book-app-project/books.py (89 lines)
-3. samples/book-app-project/utils.py (37 lines)
+📝 Recent Activity:
+- 3 commits in the last week
+- Most recent: added test fixtures
 
 Recommendations:
-- Address issue #1 for better user experience
-- Add test coverage for BookCollection methods
+- Add type hints to utils.py functions
+- Add tests for book_app.py CLI handlers
 - All files well-sized (<100 lines) - good structure!
 ```
 
-**The result**: Multiple data sources aggregated in 30 seconds. Manual process: 1+ hour of clicking around GitHub, running grep, counting lines.
+**The result**: Multiple data sources aggregated in seconds. Manually, this would mean running grep, counting lines, checking git log, and browsing test files. Easily 15+ minutes of work.
+
+</details>
 
 ---
 
-## Multi-Server Workflows
+## 🚀 Going Further
 
-The real power comes from combining servers:
+These optional topics cover additional capabilities you can explore once you're comfortable with the core MCP servers above.
 
-<img src="images/multi-server-workflow.png" alt="Multi-Server MCP Workflow" width="800"/>
+### Web Access with `web_fetch`
 
-*Combine GitHub, Filesystem, and Documentation servers for powerful integrated workflows*
+Copilot CLI includes a built-in `web_fetch` tool that can fetch content from any URL. This is useful for pulling in READMEs, API docs, or release notes without leaving your terminal. No MCP server needed.
 
-```bash
-copilot
+<details>
+<summary>See how to configure and use web_fetch</summary>
 
-# Step 1: Understand the issue from GitHub
-> Tell me about issue #1
-
-# Step 2: Find related code
-> @samples/book-app-project/books.py Show me the BookCollection class
-
-# Step 3: Get best practices
-> What are the Python best practices for input validation?
-
-# Step 4: Synthesize a solution
-> Based on the issue, the code, and best practices, suggest a fix
-
-# Step 5: Create the PR
-> Create a pull request with this fix
-```
-
-### Example: Complete Bug Investigation
-
-```bash
-copilot
-
-> Get the details of issue #1
-# Learn about the enhancement request
-
-> Show me samples/book-app-project/books.py
-# See the relevant code
-
-> What are the best practices for fuzzy string matching in Python?
-# Understand the right approach
-
-> Analyze the current implementation and suggest a fix based on what we found
-
-# Copilot synthesizes information from all three sources
-
-> Implement the fix
-
-> Create a pull request titled "Add fuzzy author search to book collection"
-```
-
----
-
-## Web Access with web_fetch
-
-GitHub Copilot CLI includes a built-in `web_fetch` tool that can retrieve content from URLs. You can control which URLs are accessible via your configuration.
-
-> 💡 **Note**: This uses `~/.copilot/config.json` (general Copilot settings), which is separate from `~/.copilot/mcp-config.json` (MCP server definitions).
-
-In `~/.copilot/config.json`:
+You can control which URLs are accessible via `~/.copilot/config.json` (general Copilot settings), which is separate from `~/.copilot/mcp-config.json` (MCP server definitions).
 
 ```json
 {
@@ -584,57 +614,120 @@ copilot
 > Fetch and summarize the README from https://github.com/facebook/react
 ```
 
----
-
-## Building a Custom MCP Server (Optional)
-
-> 📖 **Want to connect Copilot to your own APIs?** See the [Custom MCP Server Guide](mcp-custom-server.md) for a complete walkthrough on building your own server with TypeScript. Additional details can be found in the [MCP for Beginners course](https://github.com/microsoft/mcp-for-beginners).
->
-> This is completely optional - the pre-built servers (GitHub, filesystem, Context7) cover most use cases.
+</details>
 
 ---
 
-## 🎯 Try It Yourself
+### Building a Custom MCP Server (Optional)
+<a id="building-a-custom-mcp-server"></a>
 
-After completing the demos, try these variations:
+Want to connect Copilot to your own APIs, databases, or internal tools? You can build a custom MCP server in Python. This is completely optional since the pre-built servers (GitHub, filesystem, Context7) cover most use cases.
 
-1. **MCP Status Check**: Run `/mcp show` to see what servers are configured. If GitHub isn't set up, try adding it with your token.
-
-2. **Documentation Challenge**: If Context7 MCP is configured, ask for official documentation on a framework you use:
-   ```bash
-   copilot
-   > Show me the React documentation for useEffect cleanup patterns
-   ```
-
-3. **Workflow Challenge**: Try the complete issue-to-PR workflow on a real (or test) repository. Even if you don't have issues, you can create one and immediately work through it.
-
-**Self-Check**: You understand MCP when you can explain why "Get GitHub issue #42" is better than copying and pasting issue content into the prompt.
+📖 See the [Custom MCP Server Guide](mcp-custom-server.md) for a complete walkthrough. Additional details can be found in the [MCP for Beginners course](https://github.com/microsoft/mcp-for-beginners).
 
 ---
 
-## Assignment
+## 🔧 Hands-On: MCP with the Book App
 
-### Main Challenge: Explore the Book App with MCP
+Now it's your turn! Complete these exercises to practice using MCP servers with the book app project.
 
-The hands-on examples focused on listing PRs and working through an issue. Now practice MCP on different operations:
+### 📋 Exercise 1: Check Your MCP Status
 
-1. Verify GitHub MCP works (it's built-in): run `copilot` then `List my open PRs`
-2. Set up `mcp-config.json` with the filesystem server (if not already done)
-3. Use MCP to explore the book app:
-   - Use the filesystem server to read the contents of `samples/book-app-project/data.json` and describe what books are in the collection
-   - Use GitHub MCP to list recent commits that modified any file in `samples/book-app-project/`
-   - Combine both: ask Copilot to use the filesystem server to check what test coverage exists, then use GitHub MCP to create an issue titled "Improve test coverage for BookCollection" with a description listing the missing test cases
+Start by seeing what MCP servers are available:
 
-**Success criteria**: You can seamlessly combine filesystem and GitHub MCP data in a single Copilot session.
+```bash
+copilot
+
+> /mcp show
+```
+
+You should see the GitHub server listed as enabled. If not, run `/login` to authenticate.
+
+---
+
+### 📋 Exercise 2: Explore the Book App with Filesystem MCP
+
+If you've configured the filesystem server, use it to explore the book app:
+
+```bash
+copilot
+
+> How many Python files are in samples/book-app-project/?
+> What functions are defined in each file?
+```
+
+**Expected result**: Copilot lists `book_app.py`, `books.py`, and `utils.py` with their functions.
+
+> 💡 **Don't have filesystem MCP configured yet?** Use `/mcp add` or create the config file from the [Complete Configuration](#complete-configuration-file) section above. Then restart Copilot.
+
+---
+
+### 📋 Exercise 3: Query Repository History with GitHub MCP
+
+Use the built-in GitHub MCP to explore this course repository:
+
+```bash
+copilot
+
+> List the last 5 commits in this repository
+
+> What branches exist in this repository?
+```
+
+**Expected result**: Copilot shows recent commit messages and branch names from the GitHub remote.
+
+> ⚠️ **In a Codespace?** This works automatically. Authentication is inherited. If you're on a local clone, make sure `gh auth status` shows you're logged in.
+
+---
+
+### 📋 Exercise 4: Combine Multiple MCP Servers
+
+Now combine filesystem and GitHub MCP in a single session:
+
+```bash
+copilot
+
+> Read samples/book-app-project/data.json and tell me what books are
+> in the collection. Then check the recent commits to see when this
+> file was last modified.
+```
+
+**Expected result**: Copilot reads the JSON file (filesystem MCP), lists the 5 books including "The Hobbit", "1984", "Dune", "To Kill a Mockingbird", and "Mysterious Book", then queries GitHub for commit history.
+
+**Self-Check**: You understand MCP when you can explain why "Check my repo's commit history" is better than manually running `git log` and pasting the output into your prompt.
+
+---
+
+## 📝 Assignment
+
+### Main Challenge: Book App MCP Exploration
+
+Practice using MCP servers together on the book app project. Complete these steps in a single Copilot session:
+
+1. **Verify MCP is working**: Run `/mcp show` and confirm at least the GitHub server is enabled
+2. **Set up filesystem MCP** (if not already done): Create `~/.copilot/mcp-config.json` with the filesystem server configuration
+3. **Explore the code**: Ask Copilot to use the filesystem server to:
+   - List all functions in `samples/book-app-project/books.py`
+   - Check which functions in `samples/book-app-project/utils.py` are missing type hints
+   - Read `samples/book-app-project/data.json` and identify any data quality issues (hint: look at the last entry)
+4. **Check repository activity**: Ask Copilot to use GitHub MCP to:
+   - List recent commits that touched files in `samples/book-app-project/`
+   - Check if there are any open issues or pull requests
+5. **Combine servers**: In a single prompt, ask Copilot to:
+   - Read the test file at `samples/book-app-project/tests/test_books.py`
+   - Compare the tested functions against all functions in `books.py`
+   - Summarize what test coverage is missing
+
+**Success criteria**: You can seamlessly combine filesystem and GitHub MCP data in a single Copilot session, and you can explain what each MCP server contributed to the response.
 
 <details>
 <summary>💡 Hints (click to expand)</summary>
 
-**Step 1: Verify GitHub MCP**
+**Step 1: Verify MCP**
 ```bash
 copilot
-> List my open pull requests
-# If this works, GitHub MCP is already set up!
+> /mcp show
+# Should show "github" as enabled
 # If not, run: /login
 ```
 
@@ -660,21 +753,22 @@ Create `~/.copilot/mcp-config.json` (or use `/mcp add`):
 - No trailing commas after the last item
 - Validate at [jsonlint.com](https://jsonlint.com/) if you get errors
 
-**Step 3: Test the combined workflow**
-```bash
-copilot
-> /mcp show
-# Should show filesystem as enabled
+**Step 3: Data quality issue to look for**
 
-> Read samples/book-app-project/data.json and describe the books
-# Uses filesystem MCP
-
-> List recent commits that modified files in samples/book-app-project/
-# Uses GitHub MCP
-
-> Check what tests exist in samples/book-app-project/tests/ and create an issue for missing test coverage
-# Combines both servers
+The last book in `data.json` is:
+```json
+{
+  "title": "Mysterious Book",
+  "author": "",
+  "year": 0,
+  "read": false
+}
 ```
+An empty author and year of 0. That's the data quality issue!
+
+**Step 5: Test coverage comparison**
+
+The tests in `test_books.py` cover: `add_book`, `mark_as_read`, `remove_book`, `get_unread_books`, and `find_book_by_title`. Functions like `load_books`, `save_books`, and `list_books` don't have direct tests. The CLI functions in `book_app.py` and helpers in `utils.py` have no tests at all.
 
 **If MCP isn't working:** Restart Copilot after editing the config file.
 
@@ -682,7 +776,7 @@ copilot
 
 ### Bonus Challenge: Build a Custom MCP Server
 
-Ready to go deeper? Follow the [Custom MCP Server Guide](mcp-custom-server.md) to build your own server that connects to any API.
+Ready to go deeper? Follow the [Custom MCP Server Guide](mcp-custom-server.md) to build your own MCP server in Python that connects to any API.
 
 ---
 
@@ -693,7 +787,7 @@ Ready to go deeper? Follow the [Custom MCP Server Guide](mcp-custom-server.md) t
 
 | Mistake | What Happens | Fix |
 |---------|--------------|-----|
-| Not knowing GitHub MCP is built-in | Trying to install/configure it manually | GitHub MCP is included by default. Just use it: "List my open PRs" |
+| Not knowing GitHub MCP is built-in | Trying to install/configure it manually | GitHub MCP is included by default. Just try: "List the recent commits in this repo" |
 | Looking for config in wrong location | Can't find or edit MCP settings | Config is in `~/.copilot/mcp-config.json` |
 | Invalid JSON in config file | MCP servers fail to load | Use `/mcp show` to check configuration; validate JSON syntax |
 | Forgetting to authenticate MCP servers | "Authentication failed" errors | Some MCPs need separate auth. Check each server's requirements |
@@ -737,44 +831,40 @@ copilot
 
 ---
 
-## 🔮 Also Available: Plugins
+## ✅ Review Checklist
 
-GitHub Copilot CLI also supports a **plugin system** for installing community extensions:
+Before moving on, make sure you can check off each item:
 
-| Command | Purpose |
-|---------|---------|
-| `/plugin list` | See installed plugins |
-| `/plugin marketplace` | Browse available plugins |
-| `/plugin install <name>` | Install a plugin |
-| `/plugin uninstall <name>` | Remove a plugin |
-| `/plugin update` | Update installed plugins |
-
-As the plugin ecosystem grows, this will become another way to extend Copilot's capabilities. For now, MCP servers cover most extensibility needs.
+- [ ] I can explain what MCP is and why it extends Copilot's capabilities
+- [ ] I can use `/mcp show`, `/mcp add`, `/mcp enable`, and `/mcp disable`
+- [ ] I have configured at least one MCP server (filesystem or Context7)
+- [ ] I have used MCP-powered queries on the book app project
+- [ ] I understand the difference between the built-in GitHub MCP and configured servers
+- [ ] I know where to find the custom MCP server guide if I need it later
 
 ---
 
 ## Key Takeaways
 
-1. **MCP** connects Copilot to external services
-2. **Common servers** include filesystem, GitHub, and documentation
-3. **Configuration** lives in `~/.copilot/mcp-config.json`
-4. **Multi-server workflows** combine data from multiple sources
-5. **Custom servers** let you connect any API
-6. **Manage servers** with the `/mcp` command
-7. **Plugins** provide another way to extend Copilot (emerging feature)
+1. **MCP** connects Copilot to external services (GitHub, filesystem, documentation)
+2. **GitHub MCP is built-in** - no configuration needed, just `/login`
+3. **Filesystem and Context7** are configured via `~/.copilot/mcp-config.json`
+4. **Multi-server workflows** combine data from multiple sources in a single session
+5. **Manage servers** with the `/mcp` command (`show`, `add`, `enable`, `disable`)
+6. **Custom servers** let you connect any API (optional, covered in the appendix guide)
 
 > 📋 **Quick Reference**: See the [GitHub Copilot CLI command reference](https://docs.github.com/en/copilot/reference/cli-command-reference) for a complete list of commands and shortcuts.
 
 ---
 
-## What's Next
+## ➡️ What's Next
 
 You now have all the building blocks: modes, context, workflows, agents, skills, and MCP. Time to put them all together.
 
 In **[Chapter 07: Putting It All Together](../07-putting-it-together/README.md)**, you'll learn:
 
-- Combining agents, skills, and MCP
-- Complete feature development workflows
+- Combining agents, skills, and MCP in unified workflows
+- Complete feature development from idea to merged PR
 - Automation with hooks
 - Best practices for team environments
 
