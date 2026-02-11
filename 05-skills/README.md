@@ -258,11 +258,7 @@ Copilot automatically scans these locations for skills:
 | Location | Scope |
 |----------|-------|
 | `.github/skills/` | Project-specific (shared with team via git) |
-| `.claude/skills/` | Project-specific (Claude Code compatible) |
 | `~/.copilot/skills/` | User-specific (your personal skills) |
-| `~/.claude/skills/` | User-specific (Claude Code compatible) |
-
-> 💡 **Cross-Platform**: If you've already set up skills for Claude Code in `.claude/skills/`, Copilot picks them up automatically!
 
 ### Skill Structure
 
@@ -814,8 +810,7 @@ Run `/skills reload` after creating or editing skills to ensure changes are pick
 2. **Direct invocation**: You can also invoke skills directly with `/skill-name` as a slash command
 3. **SKILL.md format**: YAML frontmatter (name, description, optional license) plus markdown instructions
 4. **Location matters**: `.github/skills/` for project/team sharing, `~/.copilot/skills/` for personal use
-5. **Cross-platform**: Same skill format works in GitHub Copilot CLI, VS Code, and Claude Code
-6. **Description is key**: Write descriptions that match how you naturally ask questions
+5. **Description is key**: Write descriptions that match how you naturally ask questions
 
 > 📋 **Quick Reference**: See the [GitHub Copilot CLI command reference](https://docs.github.com/en/copilot/reference/cli-command-reference) for a complete list of commands and shortcuts.
 
