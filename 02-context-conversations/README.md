@@ -4,7 +4,7 @@
 
 In this chapter, you'll unlock the real power of GitHub Copilot CLI: context. You'll learn to use the `@` syntax to reference files and directories, giving Copilot deep understanding of your codebase. You'll discover how to maintain conversations across sessions, resume work days later exactly where you left off, and see how cross-file analysis catches bugs that single-file reviews miss entirely.
 
-## Learning Objectives
+## 🎯 Learning Objectives
 
 By the end of this chapter, you'll be able to:
 
@@ -18,7 +18,7 @@ By the end of this chapter, you'll be able to:
 
 ---
 
-## Real-World Analogy: Working with a Colleague
+## 🧩 Real-World Analogy: Working with a Colleague
 
 Imagine explaining a bug to a colleague:
 
@@ -625,9 +625,15 @@ copilot
 
 ---
 
-## Hands-On Examples
+# Practice
 
-### Example 1: Full Project Review
+Time to apply your context and session management skills.
+
+---
+
+## 🎯 Try It Yourself
+
+### Full Project Review
 
 The course includes sample files you can review directly. Start copilot and run the prompt shown next:
 
@@ -644,7 +650,7 @@ copilot
 
 > 💡 **Want to try with your own files?** Create a small Python project (`mkdir -p my-project/src`), add some .py files, then use `@my-project/src/` to review them. You can ask copilot to create sample code for you if you'd like!
 
-### Example 2: Session Workflow
+### Session Workflow
 
 ```bash
 copilot
@@ -666,8 +672,6 @@ copilot --continue
 
 ---
 
-## 🎯 Try It Yourself
-
 After completing the demos, try these variations:
 
 1. **Cross-File Challenge**: Analyze how book_app.py and books.py work together:
@@ -685,7 +689,7 @@ After completing the demos, try these variations:
 
 ---
 
-## Assignment
+## 📝 Assignment
 
 ### Main Challenge: Trace the Data Flow
 
@@ -780,7 +784,7 @@ copilot --add-dir /path/to/directory
 
 ---
 
-## Key Takeaways
+## 🔑 Key Takeaways
 
 1. **`@` syntax** gives Copilot context about files, directories, and images
 2. **Multi-turn conversations** build on each other as context accumulates
@@ -795,7 +799,7 @@ copilot --add-dir /path/to/directory
 
 ---
 
-## What's Next
+## ➡️ What's Next
 
 Now that you can give Copilot context, let's put it to work on real development tasks. The context techniques you just learned (file references, cross-file analysis, and session management) are the foundation for the powerful workflows in the next chapter.
 

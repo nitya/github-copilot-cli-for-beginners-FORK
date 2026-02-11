@@ -8,7 +8,7 @@
 
 Learn to supercharge your development workflow with AI-powered command-line assistance.
 
-## What You'll Learn
+## 🎯 What You'll Learn
 
 This hands-on course takes you from zero to productive with GitHub Copilot CLI. You'll work with a single Python book collection app throughout all chapters, progressively improving it using AI-assisted workflows. By the end, you'll confidently use AI to review code, generate tests, debug issues, and automate workflows: all from your terminal.
 
@@ -16,7 +16,7 @@ This hands-on course takes you from zero to productive with GitHub Copilot CLI. 
 
 **Perfect for:** Developers, students, and anyone who has experience with software development.
 
-## Who This Course Is For
+## 👥 Who This Course Is For
 
 This course is designed for:
 
@@ -26,7 +26,7 @@ This course is designed for:
 
 ---
 
-## What Is GitHub Copilot CLI?
+## 💻 What Is GitHub Copilot CLI?
 
 **GitHub Copilot CLI brings AI assistance directly to your terminal.** Instead of switching to a browser or code editor, you can ask questions, review code, generate tests, and debug issues without leaving your command line.
 
@@ -34,7 +34,7 @@ Think of it as having a knowledgeable colleague available 24/7 who can read your
 
 ---
 
-## Understanding the GitHub Copilot Family
+## 🤖 Understanding the GitHub Copilot Family
 
 GitHub Copilot has evolved into a family of AI-powered tools. Here's where each one lives:
 
@@ -47,7 +47,7 @@ GitHub Copilot has evolved into a family of AI-powered tools. Here's where each 
 
 This course focuses on **GitHub Copilot CLI**, bringing AI assistance directly to your terminal.
 
-## Course Structure
+## 📚 Course Structure
 
 ![GitHub Copilot CLI Learning Path](images/learning-path.png)
 
@@ -62,7 +62,7 @@ This course focuses on **GitHub Copilot CLI**, bringing AI assistance directly t
 | 06 | 🔌 [Connect to GitHub, Databases & APIs](./06-mcp-servers/README.md) | MCP server integration |
 | 07 | 🎯 [Putting It All Together](./07-putting-it-together/README.md) | Complete feature workflows |
 
-## Prerequisites
+## ✅ Prerequisites
 
 Before starting, ensure you have:
 
@@ -71,7 +71,7 @@ Before starting, ensure you have:
 ✅ **Terminal basics**: Comfortable with `cd`, `ls`, running commands<br>
 ✅ **Python 3.10+**: For running the sample book app (pre-installed in Codespaces)
 
-## How This Course Works
+## 📖 How This Course Works
 
 Each chapter follows the same pattern:
 
@@ -83,17 +83,17 @@ Each chapter follows the same pattern:
 
 **Code examples are runnable.** Every copilot text block in this course can be copied and run in your terminal.
 
-## GitHub Copilot CLI Command Reference
+## 📋 GitHub Copilot CLI Command Reference
 
 The **[GitHub Copilot CLI command reference](https://docs.github.com/en/copilot/reference/cli-command-reference)** has all commands, syntax, and workflows on one page.
 
-## Getting Help
+## 🆘 Getting Help
 
 - 🐛 **Found a bug?** [Open an Issue](https://github.com/github/github-copilot-cli-for-beginners/issues)
 - 🤝 **Want to contribute?** PRs welcome!
 - 📚 **Official Docs:** [GitHub Copilot CLI Documentation](https://docs.github.com/copilot/concepts/agents/about-copilot-cli)
 
-## Start Learning
+## 🚀 Start Learning
 
 Ready? Let's see what GitHub Copilot CLI can do!
 

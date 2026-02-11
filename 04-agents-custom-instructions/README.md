@@ -6,7 +6,7 @@ In Chapter 03, you mastered the essential workflows: code review, refactoring, d
 
 So far, you've been using Copilot CLI as a general-purpose assistant. Agents let you give it a specific persona with built-in standards, like a code reviewer that enforces type hints and PEP 8, or a testing helper that writes pytest cases. You'll see how the same prompt gets noticeably better results when handled by an agent with targeted instructions.
 
-## Learning Objectives
+## 🎯 Learning Objectives
 
 By the end of this chapter, you'll be able to:
 
@@ -20,7 +20,7 @@ By the end of this chapter, you'll be able to:
 
 ---
 
-## Real-World Analogy: Hiring Specialists
+## 🧩 Real-World Analogy: Hiring Specialists
 
 When you need help with your house, you don't call one "general helper." You call specialists:
 
@@ -35,6 +35,12 @@ Agents work the same way. Instead of a generic AI, use agents that focus on spec
 <img src="images/hiring-specialists-analogy.png" alt="Specialized Agents for Every Domain" width="800"/>
 
 Set up the instructions once, then reuse them whenever you need that specialty; code review, testing, security, documentation.
+
+---
+
+# Using Agents
+
+Get started with built-in and custom agents right away.
 
 ---
 
@@ -673,7 +679,13 @@ copilot --no-custom-instructions
 
 ---
 
-## Hands-On Example: Create and Use Your Own Agents
+# Practice
+
+Create your own agents and see them in action.
+
+---
+
+## 🎯 Try It Yourself
 
 ```bash
 
@@ -733,7 +745,7 @@ copilot
 
 ---
 
-## Assignment
+## 📝 Assignment
 
 ### Main Challenge: Build a Specialized Agent Team
 
@@ -867,7 +879,7 @@ copilot  # This loads custom instructions by default
 
 ---
 
-## Key Takeaways
+## 🔑 Key Takeaways
 
 1. **Built-in agents**: `/plan` and `/review` are directly invoked; Explore and Task work automatically
 2. **Custom agents** are specialists defined in `.agent.md` files
@@ -880,7 +892,7 @@ copilot  # This loads custom instructions by default
 
 ---
 
-## What's Next
+## ➡️ What's Next
 
 Agents change *how Copilot approaches and takes targeted actions* in your code. Next, you'll learn about **skills** - which change *what steps* it follows. Wondering how agents and skills differ? Chapter 05 covers that head-on.
 

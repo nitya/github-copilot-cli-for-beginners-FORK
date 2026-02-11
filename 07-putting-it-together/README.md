@@ -6,7 +6,7 @@ In this chapter, you'll bring together everything you've learned into complete w
 
 > 💡 **Note**: This chapter shows how to combine everything you've learned. **You don't need agents, skills, or MCP to be productive (although they can be very helpful).** If you only completed Chapters 00-03, start with the [Minimal Workflow](#start-here-minimal-workflow-no-custom-setup-required) section - it covers a complete feature workflow using only built-in features.
 
-## Learning Objectives
+## 🎯 Learning Objectives
 
 By the end of this chapter, you'll be able to:
 
@@ -88,7 +88,7 @@ copilot
 
 ---
 
-## Real-World Analogy: The Orchestra
+## 🧩 Real-World Analogy: The Orchestra
 
 A symphony orchestra has many sections:
 - **Strings** provide the foundation (like your core workflows)
@@ -103,6 +103,12 @@ That's what this chapter teaches: conducting your tools into a unified workflow.
 <img src="images/orchestra-analogy.png" alt="Orchestra Analogy - Unified Workflow" width="800"/>
 
 *Like a conductor with an orchestra, you orchestrate agents, skills, and MCP into unified workflows*
+
+---
+
+# Combined Workflows
+
+From minimal to advanced, these workflows show how to combine everything you've learned.
 
 ---
 
@@ -460,6 +466,12 @@ For teams with existing CI/CD pipelines, you can automate Copilot reviews on eve
 
 ---
 
+# Practice
+
+Put the complete workflow into practice.
+
+---
+
 ## 🎯 Try It Yourself
 
 After completing the demos, try these variations:
@@ -479,7 +491,7 @@ After completing the demos, try these variations:
 
 ---
 
-## Assignment
+## 📝 Assignment
 
 ### Main Challenge: End-to-End Feature
 
@@ -563,7 +575,7 @@ You're now equipped to use GitHub Copilot CLI as a genuine force multiplier in y
 
 ---
 
-## What's Next?
+## ➡️ What's Next
 
 Your learning doesn't stop here:
 
@@ -580,7 +592,7 @@ Your learning doesn't stop here:
 
 ---
 
-## Key Takeaways
+## 🔑 Key Takeaways
 
 1. **Integration > Isolation**: Combine tools for maximum impact
 2. **Context first**: Always gather context before analysis

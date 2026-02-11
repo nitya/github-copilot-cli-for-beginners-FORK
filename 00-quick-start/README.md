@@ -2,7 +2,7 @@
 
 Welcome! In this chapter, you'll get GitHub Copilot CLI (Command Line Interface) installed, signed in with your GitHub account, and verified that everything works. This is a quick setup chapter. Once you're up and running, the real demos start in Chapter 01!
 
-## Learning Objectives
+## 🎯 Learning Objectives
 
 By the end of this chapter, you'll have:
 
@@ -14,7 +14,7 @@ By the end of this chapter, you'll have:
 
 ---
 
-## Prerequisites
+## ✅ Prerequisites
 
 - **GitHub Account** with Copilot access. [See subscription options](https://github.com/features/copilot/plans). Students/Teachers can access Copilot Pro for [free via GitHub Education](https://education.github.com/pack).
 - **Terminal basics**: Comfortable with commands like `cd` and `ls`
@@ -217,7 +217,7 @@ copilot
 
 ---
 
-## Key Takeaways
+## 🔑 Key Takeaways
 
 1. **A GitHub Codespace is a quick way to get started** - Python, pytest, and GitHub Copilot CLI are all pre-installed so you can jump right into the demos
 2. **Multiple installation methods** - Choose what works for your system (Homebrew, WinGet, npm, or install script)

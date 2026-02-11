@@ -642,7 +642,7 @@ Recommendations:
 
 ---
 
-## 🔧 Hands-On: MCP with the Book App
+## 🎯 Try It Yourself
 
 Now it's your turn! Complete these exercises to practice using MCP servers with the book app project.
 
@@ -848,7 +848,7 @@ For most of this course, `/mcp show` is all you need. The other commands become 
 
 ---
 
-## Key Takeaways
+## 🔑 Key Takeaways
 
 1. **MCP** connects Copilot to external services (GitHub, filesystem, documentation)
 2. **GitHub MCP is built-in** - no configuration needed, just `/login`

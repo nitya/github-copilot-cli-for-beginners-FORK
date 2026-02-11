@@ -4,7 +4,7 @@
 
 In this chapter, GitHub Copilot CLI becomes your daily driver. You'll use it inside the workflows you already rely on every day: testing, refactoring, debugging, and Git.
 
-## Learning Objectives
+## 🎯 Learning Objectives
 
 By the end of this chapter, you'll be able to:
 
@@ -18,7 +18,7 @@ By the end of this chapter, you'll be able to:
 
 ---
 
-## Real-World Analogy: A Carpenter's Workflow
+## 🧩 Real-World Analogy: A Carpenter's Workflow
 
 A carpenter doesn't just know how to use tools, they have *workflows* for different jobs:
 
@@ -26,6 +26,13 @@ A carpenter doesn't just know how to use tools, they have *workflows* for differ
 
 Similarly, developers have workflows for different tasks. GitHub Copilot CLI enhances each of these workflows, making you more efficient and effective in your daily coding tasks.
 
+---
+
+# The Five Workflows
+
+Each workflow below is self-contained. Pick the ones that match your current needs, or work through them all.
+
+---
 
 ## Choose Your Own Adventure
 
@@ -708,6 +715,12 @@ copilot -p "Generate commit message for: $(git diff --staged)"
 
 ---
 
+# Practice
+
+Now it's your turn to apply these workflows.
+
+---
+
 ## 🎯 Try It Yourself
 
 After completing the demos, try these variations:
@@ -726,7 +739,7 @@ After completing the demos, try these variations:
 
 ---
 
-## Assignment
+## 📝 Assignment
 
 ### Main Challenge: Refactor, Test, and Ship
 
@@ -832,7 +845,7 @@ copilot
 
 ---
 
-## Key Takeaways
+## 🔑 Key Takeaways
 
 <img src="images/specialized-workflows.png" alt="Specialized Workflows for Every Task: Code Review, Refactoring, Debugging, Testing, and Git Integration" width="800"/>
 
@@ -874,7 +887,7 @@ Chapters 04-06 cover additional features that add even more power and are worthw
 
 ---
 
-## What's Next
+## ➡️ What's Next
 
 The remaining chapters cover additional features that extend Copilot's capabilities:
 

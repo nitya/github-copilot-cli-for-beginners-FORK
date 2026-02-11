@@ -5,7 +5,7 @@
 In this chapter, you'll learn about Agent Skills: folders of instructions that Copilot automatically loads when relevant to your task. While agents change *how* Copilot thinks, skills teach Copilot *specific ways to complete tasks*. You'll create a security audit skill that Copilot applies whenever you ask about security, build team-standard review criteria that ensure consistent code quality, and learn how skills work across Copilot CLI, VS Code, and the Copilot coding agent.
 
 
-## Learning Objectives
+## 🎯 Learning Objectives
 
 By the end of this chapter, you'll be able to:
 
@@ -18,7 +18,7 @@ By the end of this chapter, you'll be able to:
 
 ---
 
-## Real-World Analogy: Power Tools
+## 🧩 Real-World Analogy: Power Tools
 
 A general-purpose drill is useful, but specialized attachments make it powerful. Skills work the same way. Just like swapping drill bits for different jobs, you can add skills to Copilot for different tasks:
 
@@ -32,6 +32,12 @@ A general-purpose drill is useful, but specialized attachments make it powerful.
 <img src="images/power-tools-analogy.png" alt="Power Tools - Skills Extend Copilot's Capabilities" width="800"/>
 
 *Skills are specialized attachments that extend what Copilot can do*
+
+---
+
+# How Skills Work
+
+Learn what skills are, why they matter, and how they differ from agents and MCP.
 
 ---
 
@@ -231,6 +237,12 @@ PR Review: feature/user-auth
 
 ---
 
+# Creating and Managing Skills
+
+Build your own skills, manage them with `/skills`, and find community skills.
+
+---
+
 ## Creating Custom Skills
 
 Skills are stored in `.github/skills/` (project-specific) or `~/.copilot/skills/` (user level).
@@ -420,99 +432,6 @@ copilot --agent code-reviewer
 
 ---
 
-## Hands-On Examples
-
-Here are two more skills showing different patterns. Follow the same `mkdir` + `cat` workflow from "Creating Your First Skill" above or copy and paste the skills into the proper location. More examples are available in [.github/skills](../.github/skills).
-
-### Example 1: pytest Test Generation Skill
-
-A skill that ensures consistent pytest structure across your codebase:
-
-```bash
-mkdir -p .github/skills/pytest-gen
-
-cat > .github/skills/pytest-gen/SKILL.md << 'EOF'
----
-name: pytest-gen
-description: Generate comprehensive pytest tests with fixtures and edge cases
----
-
-# pytest Test Generation
-
-Generate pytest tests that include:
-
-## Test Structure
-- Use pytest conventions (test_ prefix)
-- One assertion per test when possible
-- Clear test names describing expected behavior
-- Use fixtures for setup/teardown
-
-## Coverage
-- Happy path scenarios
-- Edge cases: None, empty strings, empty lists
-- Boundary values
-- Error scenarios with pytest.raises()
-
-## Fixtures
-- Use @pytest.fixture for reusable test data
-- Use tmpdir/tmp_path for file operations
-- Mock external dependencies with pytest-mock
-
-## Output
-Provide complete, runnable test file with proper imports.
-EOF
-```
-
-### Example 2: Team PR Review Skill
-
-A skill that enforces consistent PR review standards across your team:
-
-```bash
-mkdir -p .github/skills/pr-review
-
-cat > .github/skills/pr-review/SKILL.md << 'EOF'
----
-name: pr-review
-description: Team-standard PR review checklist
----
-
-# PR Review
-
-Review code changes against team standards:
-
-## Security Checklist
-- [ ] No hardcoded secrets or API keys
-- [ ] Input validation on all user data
-- [ ] No bare except clauses
-- [ ] No sensitive data in logs
-
-## Code Quality
-- [ ] Functions under 50 lines
-- [ ] No print statements in production code
-- [ ] Type hints on public functions
-- [ ] Context managers for file I/O
-- [ ] No TODOs without issue references
-
-## Testing
-- [ ] New code has tests
-- [ ] Edge cases covered
-- [ ] No skipped tests without explanation
-
-## Documentation
-- [ ] API changes documented
-- [ ] Breaking changes noted
-- [ ] README updated if needed
-
-## Output Format
-Provide results as:
-- ✅ PASS: Items that look good
-- ⚠️ WARN: Items that could be improved
-- ❌ FAIL: Items that must be fixed before merge
-EOF
-```
-
----
-
 ## Managing Skills with the `/skills` Command
 
 Use the `/skills` command to manage your installed skills:
@@ -622,9 +541,106 @@ cp -r /tmp/awesome-copilot/skills/code-review ~/.copilot/skills/
 
 ---
 
+# Practice
+
+Apply what you've learned by building and testing your own skills.
+
+---
+
 ## 🎯 Try It Yourself
 
-After completing the demos, try these variations:
+### Build More Skills
+
+Here are two more skills showing different patterns. Follow the same `mkdir` + `cat` workflow from "Creating Your First Skill" above or copy and paste the skills into the proper location. More examples are available in [.github/skills](../.github/skills).
+
+### pytest Test Generation Skill
+
+A skill that ensures consistent pytest structure across your codebase:
+
+```bash
+mkdir -p .github/skills/pytest-gen
+
+cat > .github/skills/pytest-gen/SKILL.md << 'EOF'
+---
+name: pytest-gen
+description: Generate comprehensive pytest tests with fixtures and edge cases
+---
+
+# pytest Test Generation
+
+Generate pytest tests that include:
+
+## Test Structure
+- Use pytest conventions (test_ prefix)
+- One assertion per test when possible
+- Clear test names describing expected behavior
+- Use fixtures for setup/teardown
+
+## Coverage
+- Happy path scenarios
+- Edge cases: None, empty strings, empty lists
+- Boundary values
+- Error scenarios with pytest.raises()
+
+## Fixtures
+- Use @pytest.fixture for reusable test data
+- Use tmpdir/tmp_path for file operations
+- Mock external dependencies with pytest-mock
+
+## Output
+Provide complete, runnable test file with proper imports.
+EOF
+```
+
+### Team PR Review Skill
+
+A skill that enforces consistent PR review standards across your team:
+
+```bash
+mkdir -p .github/skills/pr-review
+
+cat > .github/skills/pr-review/SKILL.md << 'EOF'
+---
+name: pr-review
+description: Team-standard PR review checklist
+---
+
+# PR Review
+
+Review code changes against team standards:
+
+## Security Checklist
+- [ ] No hardcoded secrets or API keys
+- [ ] Input validation on all user data
+- [ ] No bare except clauses
+- [ ] No sensitive data in logs
+
+## Code Quality
+- [ ] Functions under 50 lines
+- [ ] No print statements in production code
+- [ ] Type hints on public functions
+- [ ] Context managers for file I/O
+- [ ] No TODOs without issue references
+
+## Testing
+- [ ] New code has tests
+- [ ] Edge cases covered
+- [ ] No skipped tests without explanation
+
+## Documentation
+- [ ] API changes documented
+- [ ] Breaking changes noted
+- [ ] README updated if needed
+
+## Output Format
+Provide results as:
+- ✅ PASS: Items that look good
+- ⚠️ WARN: Items that could be improved
+- ❌ FAIL: Items that must be fixed before merge
+EOF
+```
+
+### Go Further
 
 1. **Skill Creation Challenge**: Create a `quick-review` skill that does a 3-point checklist:
    - Bare except clauses
@@ -641,11 +657,11 @@ After completing the demos, try these variations:
 
 ---
 
-## Assignment
+## 📝 Assignment
 
 ### Main Challenge: Build a Book Summary Skill
 
-The hands-on examples created `pytest-gen` and `pr-review` skills. Now practice creating a completely different kind of skill: one for generating formatted output from data.
+The examples above created `pytest-gen` and `pr-review` skills. Now practice creating a completely different kind of skill: one for generating formatted output from data.
 
 1. List your current skills: Run Copilot and pass it `/skills list`. You can also use `ls .github/skills/` to see project skills or `ls ~/.copilot/skills/` for personal skills.
 2. Create a `book-summary` skill at `.github/skills/book-summary/SKILL.md` that generates a formatted markdown summary of the book collection
@@ -786,7 +802,7 @@ Run `/skills reload` after creating or editing skills to ensure changes are pick
 
 ---
 
-## Key Takeaways
+## 🔑 Key Takeaways
 
 1. **Skills are automatic**: Copilot loads them when your prompt matches the skill's description
 2. **Direct invocation**: You can also invoke skills directly with `/skill-name` as a slash command
@@ -799,7 +815,7 @@ Run `/skills reload` after creating or editing skills to ensure changes are pick
 
 ---
 
-## What's Next
+## ➡️ What's Next
 
 Skills extend what Copilot can do with auto-loaded instructions. But what about connecting to external services? That's where MCP comes in.
 

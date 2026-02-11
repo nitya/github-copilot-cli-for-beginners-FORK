@@ -6,7 +6,7 @@ This chapter is where the magic starts! You'll experience firsthand why develope
 
 > ⚠️ **Prerequisites**: Make sure you've completed **[Chapter 00: Quick Start](../00-quick-start/README.md)** first. You'll need GitHub Copilot CLI installed and authenticated before running the demos below.
 
-## Learning Objectives
+## 🎯 Learning Objectives
 
 By the end of this chapter, you'll be able to:
 
@@ -15,6 +15,12 @@ By the end of this chapter, you'll be able to:
 - Use slash commands to control your sessions
 
 > ⏱️ **Estimated Time**: ~50 minutes (20 min reading + 30 min hands-on)
+
+---
+
+# Your First Copilot Experience
+
+Jump right in and see what Copilot CLI can do.
 
 ---
 
@@ -179,11 +185,13 @@ When you're done exploring, exit the session:
 
 ---
 
+# Modes and Commands
+
 You've just seen what Copilot CLI can do. Now let's understand *how* to use these capabilities effectively. The key is knowing which of the three interaction modes to use for different situations.
 
 ---
 
-## Real-World Analogy: Dining Out
+## 🧩 Real-World Analogy: Dining Out
 
 Think of using GitHub Copilot CLI like going out to eat. From planning the trip to placing your order, different situations call for different approaches:
 
@@ -455,9 +463,15 @@ copilot
 
 ---
 
-## Hands-On Examples
+# Practice
 
-### Example 1: Interactive Exploration
+Time to put what you've learned into action.
+
+---
+
+## 🎯 Try It Yourself
+
+### Interactive Exploration
 
 Start Copilot and use follow-up prompts to iteratively improve the book app:
 
@@ -473,7 +487,7 @@ copilot
 > /exit
 ```
 
-### Example 2: Plan a Feature
+### Plan a Feature
 
 Use `/plan` to have Copilot map out an implementation before writing any code:
 
@@ -487,7 +501,7 @@ copilot
 # Watch it implement step by step
 ```
 
-### Example 3: Automate with Programmatic Mode
+### Automate with Programmatic Mode
 
 The `-p` flag lets you run Copilot directly from your terminal without entering interactive mode. Copy and paste the following script into your terminal (not inside Copilot) from the repository root to review all Python files in the book app.
 
@@ -512,8 +526,6 @@ Get-ChildItem samples/book-app-project/*.py | ForEach-Object {
 
 ---
 
-## 🎯 Try It Yourself
-
 After completing the demos, try these variations:
 
 1. **Interactive Challenge**: Start `copilot` and explore the book app. Ask about `@samples/book-app-project/books.py` and request improvements 3 times in a row.
@@ -524,7 +536,7 @@ After completing the demos, try these variations:
 
 ---
 
-## Assignment
+## 📝 Assignment
 
 ### Main Challenge: Improve the Book App Utilities
 
@@ -593,7 +605,7 @@ The examples used `/plan` for a search feature and `-p` for batch reviews. Now t
 
 ---
 
-## Key Takeaways
+## 🔑 Key Takeaways
 
 1. **Interactive mode** is for exploration and iteration - context carries forward. It's like having a conversation with someone who remembers what you've said up to that point.
 2. **Plan mode** is normally for more involved tasks. Review before implementation.
@@ -604,7 +616,7 @@ The examples used `/plan` for a search feature and `-p` for batch reviews. Now t
 
 ---
 
-## What's Next
+## ➡️ What's Next
 
 Now that you understand the three modes, let's learn how to give Copilot context about your code.
 
