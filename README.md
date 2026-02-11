@@ -93,9 +93,3 @@ The **[GitHub Copilot CLI command reference](https://docs.github.com/en/copilot/
 - 🤝 **Want to contribute?** PRs welcome!
 - 📚 **Official Docs:** [GitHub Copilot CLI Documentation](https://docs.github.com/copilot/concepts/agents/about-copilot-cli)
 
-## 🚀 Start Learning
-
-Ready? Let's see what GitHub Copilot CLI can do!
-
-**[Begin with Chapter 00: Quick Start →](./00-quick-start/README.md)**
-
