@@ -24,6 +24,8 @@ By the end of this chapter, you'll be able to:
 
 ## 🧩 Real-World Analogy: Browser Extensions
 
+<img src="images/browser-extensions-analogy.png" alt="MCP Servers are like Browser Extensions" width="800"/>
+
 Think of MCP servers like browser extensions. Your browser on its own can display web pages, but extensions connect it to extra services:
 
 | Browser Extension | What It Connects To | MCP Equivalent |
@@ -34,11 +36,12 @@ Think of MCP servers like browser extensions. Your browser on its own can displa
 
 Without extensions, your browser is still useful, but with them, it becomes a powerhouse. MCP servers do the same for Copilot. They connect it to real, live data sources so it can read your GitHub issues, explore your file system, fetch up-to-date documentation, and more.
 
+***MCP servers connect Copilot to the outside world: GitHub, repositories, documentation, and more***
+
+
 > 💡 **Key insight**: Without MCP, Copilot can only see files you explicitly share with `@`. With MCP, it can proactively explore your project, check your GitHub repo, and look up documentation, all automatically.
 
-<img src="images/browser-extensions-analogy.png" alt="MCP Servers are like Browser Extensions" width="800"/>
 
-*MCP servers connect Copilot to the outside world: GitHub, repositories, documentation, and more*
 
 ---
 
@@ -273,8 +276,9 @@ copilot
 
 </details>
 
-### Complete Configuration File
 <a id="complete-configuration-file"></a>
+
+### Complete Configuration File
 
 Here's a full `mcp-config.json` with filesystem and Context7 servers:
 
