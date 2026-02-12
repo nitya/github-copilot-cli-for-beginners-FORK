@@ -20,7 +20,11 @@ By the end of this chapter, you'll be able to:
 
 ## 🧩 Real-World Analogy: Power Tools
 
-A general-purpose drill is useful, but specialized attachments make it powerful. Skills work the same way. Just like swapping drill bits for different jobs, you can add skills to Copilot for different tasks:
+A general-purpose drill is useful, but specialized attachments make it powerful. 
+<img src="images/power-tools-analogy.png" alt="Power Tools - Skills Extend Copilot's Capabilities" width="800"/>
+
+
+Skills work the same way. Just like swapping drill bits for different jobs, you can add skills to Copilot for different tasks:
 
 | Skill Attachment | Purpose |
 |------------|---------|
@@ -29,7 +33,7 @@ A general-purpose drill is useful, but specialized attachments make it powerful.
 | `generate-tests` | Create comprehensive pytest tests |
 | `code-review` | Apply team code quality standards |
 
-<img src="images/power-tools-analogy.png" alt="Power Tools - Skills Extend Copilot's Capabilities" width="800"/>
+
 
 *Skills are specialized attachments that extend what Copilot can do*
 
@@ -480,7 +484,7 @@ Description: Security-focused code review checking OWASP Top 10 vulnerabilities
 
 ---
 
-### When to Use /skills reload
+### When to Use `/skills reload`
 
 After creating or editing a skill's SKILL.md file, run `/skills reload` to pick up the changes without restarting Copilot:
 
