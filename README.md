@@ -80,7 +80,7 @@ Each chapter follows the same pattern:
 
 ## 📋 GitHub Copilot CLI Command Reference
 
-The **[GitHub Copilot CLI command reference](https://docs.github.com/en/copilot/reference/cli-command-reference)** has all commands, syntax, and workflows on one page.
+The **[GitHub Copilot CLI command reference](https://docs.github.com/en/copilot/reference/cli-command-reference)** helps you find commands and keyboard shortcuts to help you use Copilot CLI effectively.
 
 ## 🙋 Getting Help
 
