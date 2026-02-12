@@ -38,8 +38,6 @@ Agents work the same way. Instead of a generic AI, use agents that focus on spec
 
 # Using Agents
 
-<img src="images/using-agents.png" alt="Four colorful AI robots standing together, each with different tools representing specialized agent capabilities" width="800"/>
-
 Get started with built-in and custom agents right away.
 
 ---
@@ -106,6 +104,8 @@ What about the Task Agent? It works behind the scenes to manage and track what i
 # Adding Agents to Copilot CLI
 
 You can simply define your own agents to be part of your workflow! Define once, then direct!
+
+<img src="images/using-agents.png" alt="Four colorful AI robots standing together, each with different tools representing specialized agent capabilities" width="800"/>
 
 ## 🗂️ Add your agents 
 
