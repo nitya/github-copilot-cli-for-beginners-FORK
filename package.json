@@ -9,7 +9,7 @@
     "generate:vhs": "node .github/scripts/generate-demos.js",
     "verify:gifs": "node .github/scripts/verify-gifs.js",
     "generate:demos": "npm run scan:demos && npm run create:tapes && npm run generate:vhs && npm run verify:gifs",
-    "release": "npm run generate:headers && npm run generate:demos",
+    "release": "npm run generate:demos",
     "release:ci": "npm run generate:headers"
   },
   "keywords": [

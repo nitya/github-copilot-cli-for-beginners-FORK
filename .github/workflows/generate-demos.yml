@@ -36,7 +36,7 @@ jobs:
       - name: Install VHS dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y ttyd ffmpeg fonts-dejavu
+          sudo apt-get install -y ttyd ffmpeg fonts-dejavu tesseract-ocr
 
       - name: Install VHS
         run: |
