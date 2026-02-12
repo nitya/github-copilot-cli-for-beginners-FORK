@@ -47,6 +47,20 @@ Learn what skills are, why they matter, and how they differ from agents and MCP.
 
 ---
 
+## *New to skills?* Start Here!
+
+1. **See what skills are already available:**
+   ```bash
+   copilot
+   > /skills list
+   ```
+   This shows all skills Copilot can find in your project and personal folders.
+
+2. **Look at a real skill file:** Check out our provided [code-review SKILL.md](../.github/skills/code-review/SKILL.md) to see the pattern — it's just YAML frontmatter plus markdown instructions.
+
+3. **Understand the core concept:** Skills are task-specific instructions that Copilot loads *automatically* when your prompt matches the skill's description. You don't need to activate them — just ask naturally.
+
+
 ## Understanding Skills
 
 Agent Skills are folders containing instructions, scripts, and resources that Copilot **automatically loads when relevant** to your task. Copilot reads your prompt, checks if any skills match, and applies the relevant instructions automatically.
